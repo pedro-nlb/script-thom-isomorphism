@@ -96,25 +96,25 @@
 \begin{itemize}
   \item We work with complex vector spaces and complex vector bundles only.
   \item We use the usual word \textit{rank} instead of \textit{dimension}, which is the one used in \cite{ati67}.
+  \item We use $\operatorname{Vect}(X)$ to denote the set of isomorphism classes of vector bundles on $X$, and $\operatorname{Vect}_{n}(X)$ to denote the subset of $\operatorname{Vect}(X)$ given by bundles of dimension $n$.
+  \item We denote by $\mathcal{C}$ the category of compact spaces, by $\mathcal{C}^{+}$ the category of compact spaces with distinguished basepoints and by $\mathcal{C}^{2}$ the category of compact pairs.
 \end{itemize}
 
-\section{Remarks on preliminaries from \cite{ati67}}
+\section{Recollection from previous talks}
 
-\subsection{Basic definitions \cite[\S 1.1]{ati67}}
+\subsection{Definition of $K(X)$}
 
-\begin{rem}[{\cite[p.~1]{ati67}}]
-  Even if ``the topology on $E_{x}$'' didn't mean the euclidean topology---which it probably does---, continuity of scalar multiplication still imposes restrictions on the topology of $E$.
-  For instance, $E$ cannot be a discrete topological space unless all the fibres of $p$ are zero-dimensional.
-\end{rem}
+If $X$ is any space, the set $\operatorname{Vect}(X)$ has the structure of an abelian semigroup, where the additive structure is defined by direct sum.
 
-\begin{rem}[{\cite[p.~2]{ati67}}]
-  If $\varphi$ is a homomorphism of families which is bijective and such that $\varphi^{-1}$ is continuous, then $\varphi^{-1}$ is indeed again a homomorphism of families, because the inverse of a bijective linear homomorphism is again a linear homomorphism.
-\end{rem}
+We have a functor $\mathcal{C}^{2} \to \mathcal{C}^{+}$ that sends a pair $(X,Y)$ to $X/Y$, with basepoint $Y/Y$.
+If $Y = \varnothing$, then we interpret the resulting object as $X$ with a disjoint basepoint.
+We also have a functor $\mathcal{C} \to \mathcal{C}^{2}$ sending $X \mapsto (X, \varnothing)$.
+Hence, the composition of the two functors gives $X \mapsto X^{+}$, where $X^{+}$ is the disjoint union of $X$ with a basepoint.
 
-\begin{rem}[{\cite[pp.~4--5]{ati67}}]
-  As suggested by Atiyah, everything said in this pages becomes easier to see if we fix bases of the (finite dimensional) vector spaces involved.
-  Linear homomorphisms are then given by matrices, and two matrices are close to each other if their entries are close to each other in the euclidean sense.
-\end{rem}
+For $X$ in $\mathcal{C}^{+}$ we define $\tilde{K}(X)$ to be the kernel of the map $i^{*} \colon K(X) \to K(x_{0})$, where $i \colon x_{0} \to X$ is the inclusion of the basepoint.
+If $c \colon X \to x_{0}$ is the collapsing map, then $c^{*}$ induces a splitting
+\[ K(X) \cong \tilde{K}(X) \oplus K(x_{0}). \]
+Indeed, we need...
 
 \bibliographystyle{alpha}
 \bibliography{main}
