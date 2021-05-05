@@ -94,17 +94,21 @@
 \section{Setting and conventions}
 
 \begin{itemize}
-  \item We work with complex vector spaces and complex vector bundles only.
-  \item We use the usual word \textit{rank} instead of \textit{dimension}, which is the one used in \cite{ati67}.
-  \item We use $\operatorname{Vect}(X)$ to denote the set of isomorphism classes of vector bundles on $X$, and $\operatorname{Vect}_{n}(X)$ to denote the subset of $\operatorname{Vect}(X)$ given by bundles of dimension $n$.
-  \item We denote by $\mathcal{C}$ the category of compact spaces, by $\mathcal{C}^{+}$ the category of compact spaces with distinguished basepoints and by $\mathcal{C}^{2}$ the category of compact pairs.
+  \item We work with complex vector spaces and complex vector bundles only \cite[p.~1]{ati67}.
+  \item We use the usual word \textit{rank} instead of \textit{dimension}, which is the one used in \cite[p.~3]{ati67}.
+  \item All base spaces are implicitly assumed to be compact and Hausdorff, although reminders will appear now and then.
+    The usual notation for a base space will be $X$.
+  \item We use $\operatorname{Vect}(X)$ to denote the set of isomorphism classes of vector bundles $X$, and $\operatorname{Vect}_{n}(X)$ to denote the subset of $\operatorname{Vect}(X)$ given by bundles of rank $n$ \cite[p.~17]{ati67}.
+    Note that $(\operatorname{Vect}(X), \oplus)$ is a commutative monoid \cite[p.~17]{ati67}, and $(\operatorname{Vect}(X), \oplus, \otimes)$ is a semiring.
+  \item Given a commutative monoid $A$, we denote by $K(A)$ its Grothendieck group \cite[p.~42]{ati67}.
+    If $A$ is also a semiring, we regard $K(A)$ as a ring with the induced ring structure \cite[p.~43]{ati67}.
+  \item We denote $K(X) := K(\operatorname{Vect}(X))$, which is then a commutative ring with one \cite[p.~43]{ati67}.
+    We think of elements of $K(X)$ as formal differences $[E] - [F]$ of vector bundles $E$ and $F$ on $X$ \cite[p.~44]{ati67}.
+  \item We write $\underline{n}$ for the trivial bundle of rank $n$.
+  \item We denote by $\mathcal{C}$ the category of compact topological spaces, by $\mathcal{C}^{+}$ the category of compact spaces with distinguished basepoints and by $\mathcal{C}^{2}$ the category of compact pairs.
 \end{itemize}
 
 \section{Recollection from previous talks}
-
-\subsection{Definition of $K(X)$}
-
-If $X$ is any space, the set $\operatorname{Vect}(X)$ has the structure of an abelian semigroup, where the additive structure is defined by direct sum.
 
 We have a functor $\mathcal{C}^{2} \to \mathcal{C}^{+}$ that sends a pair $(X,Y)$ to $X/Y$, with basepoint $Y/Y$.
 If $Y = \varnothing$, then we interpret the resulting object as $X$ with a disjoint basepoint.
@@ -115,6 +119,54 @@ For $X$ in $\mathcal{C}^{+}$ we define $\tilde{K}(X)$ to be the kernel of the ma
 If $c \colon X \to x_{0}$ is the collapsing map, then $c^{*}$ induces a splitting
 \[ K(X) \cong \tilde{K}(X) \oplus K(x_{0}). \]
 Indeed, we need...
+
+\appendix
+
+\section{More on conventions and preliminaries}
+
+\subsection{Construction of $K(X)$}
+
+The Grothendieck group is defined via universal property, but let us agree on a specific construction in order to have a precise description of the elements in the ring $K(X)$.
+We follow both \cite{ati67} and \cite{hat03} and consider the construction $1$ described by Jin in the first talk of the seminar, which is the second construction discussed by Atiyah in \cite[p.~42]{ati67}.
+
+\begin{lm}
+  Let $M$ be a commutative monoid.
+  Then Jin's construction $1$ agrees with Atiyah's second construction of $K(M)$.
+  \begin{proof}
+    In both cases $K(M)$ is the quotient of $M \times M$ by an equivalence relation, so it suffices to show that the equivalence relations agree.
+    In Atiyah's construction we have
+    \[ (x,y) \sim_{A} (x', y') : \Leftrightarrow \exists z , z' \in M,, (x + z, y + z) = (x' + z', y' + z'). \]
+    In Jin's construction we have
+    \[ (x,y) \sim_{J} (x', y') : \Leftrightarrow \exists z \in M,, x + y' + z = x' + y + z. \]
+    If $(x, y) \sim_{A} (x', y')$, then we have $x + z = x' + z'$ and $y + z = y' + z'$ for some $z, z' \in M$. 
+    Associativity and commutativity of $M$ imply that
+    \[ x + y' + z + z' = x' + y' + z + z' = x' + y + z + z', \]
+    hence $(x, y) \sim_{J} (x', y')$.
+    Conversely, if $(x, y) \sim_{J} (x', y')$, then we have $x + y' + z = x' + y + z$ for some $z \in M$.
+    In particular we have
+    \begin{align*}
+      (x + (x + y' + z), y + (x + y' + z)) & = (x + (x' + y + z), y' + (x + y + z)) \\
+      & = (x' + (x + y + z), y' + (x + y + z)),
+    \end{align*}
+    so $(x, y) \sim_{A} (x', y')$ as well.
+  \end{proof}
+\end{lm}
+
+Given (an isomorphism class of) a vector bundle $E \in \operatorname{Vect}(X)$, we denote by $[E]$ its image in $K(X)$, that is, $[E] = [(E, 0)]$.
+Since $-[E] = [(0,E)]$, we can write every element $[(E,F)] \in K(X)$ as $[E] - [F]$.
+We can find some vector bundle $G$ such that $F \oplus G$ is trivial \cite[Corollary 1.4.14]{ati67}.
+With the notation introduced earlier we can write $[F \oplus G] = [\underline{n}]$ for some $n \in \mathbb{N}$.
+Then we would have
+\[ [E] - [F] = [E] + [G] - ([F] + [G]) = [E \oplus G] - [\underline{n}], \]
+showing that every element of $K(X)$ can be written as $[H] - [\underline{n}]$ for some vector bundle $H$ on $X$ and some natural number $n \in \mathbb{N}$ \cite[p.~44]{ati67}.
+
+Suppose now that $E$ and $F$ are such that $[E] = [F]$, that is, $[(E,0)] = [(F,0)]$.
+By definition of the equivalence relation that we are using, there exists some vector bundle $G$ such that $E \oplus G \cong F \oplus G$.
+Applying \cite[Corollary 1.4.14]{ati67} again we deduce that $E \oplus \underline{n} \cong F \oplus \underline{n}$ for some $n \in \mathbb{N}$.
+In this case we say that $E$ and $F$ are \textit{stably equivalent}.
+This brings us to Hatcher's description of $K(X)$ \cite[p.~39]{hat03}, namely, as formal differences $E - E'$ in which we identify $E_{1} - E_{1}'$ with $E_{2} - E_{2}'$ if and only if $E_{1} \oplus E_{2}'$ and $E_{2} \oplus E_{1}'$ are stably equivalent, that is, if and only if $[E_{1} \oplus E_{2}'] = [E_{2} \oplus E_{1}']$.
+Since $[E_{1} \oplus E_{2}'] = [E_{1}] + [E_{2}']$ and $[E_{2} \oplus E_{1}'] = [E_{2}] + [E_{1}']$, we do have $E_{1} - E_{1}' = E_{2} - E_{2}'$ in Hatcher's sense if and only if $[(E_{1},E_{1}')] = [(E_{2},E_{2}')]$ in Atiyah's sense.
+We will try to follow Atiyah's notation most of the time.
 
 \bibliographystyle{alpha}
 \bibliography{main}
