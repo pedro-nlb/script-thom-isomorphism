@@ -91,40 +91,54 @@
   \textcolor{gray}{---parts in gray will be omitted during the talk---}
 \end{center}
 
-\setcounter{section}{-1}
-
-\section{Setting and conventions}
-
-\begin{itemize}
-  \item We work with complex vector spaces and complex vector bundles only \cite[p.~1]{ati67}.
-  \item We use the usual word \textit{rank} instead of \textit{dimension}, which is the one used in \cite[p.~3]{ati67}.
-  \item All base spaces are implicitly assumed to be compact and Hausdorff, although reminders will appear now and then.
-    The usual notation for a base space will be $X$.
-  \item We use $\operatorname{Vect}(X)$ to denote the set of isomorphism classes of vector bundles $X$, and $\operatorname{Vect}_{n}(X)$ to denote the subset of $\operatorname{Vect}(X)$ given by bundles of rank $n$ \cite[p.~17]{ati67}.
-    Note that $(\operatorname{Vect}(X), \oplus)$ is a commutative monoid \cite[p.~17]{ati67}, and $(\operatorname{Vect}(X), \oplus, \otimes)$ is a semiring.
-  \item Given a commutative monoid $A$, we denote by $K(A)$ its Grothendieck group \cite[p.~42]{ati67}.
-    If $A$ is also a semiring, we regard $K(A)$ as a ring with the induced ring structure \cite[p.~43]{ati67}.
-  \item We denote $K(X) := K(\operatorname{Vect}(X))$, which is then a commutative ring with one \cite[p.~43]{ati67}.
-    We think of elements of $K(X)$ as formal differences $[E] - [F]$ of vector bundles $E$ and $F$ on $X$ \cite[p.~44]{ati67}.
-  \item We write $\underline{n}$ for the trivial bundle of rank $n$.
-  \item We denote by $\mathcal{C}$ the category of compact topological spaces, by $\mathcal{C}^{+}$ the category of compact spaces with distinguished basepoints and by $\mathcal{C}^{2}$ the category of compact pairs.
-\end{itemize}
-
 \section{Recollection from previous talks}
 
-We have a functor $\mathcal{C}^{2} \to \mathcal{C}^{+}$ that sends a pair $(X,Y)$ to $X/Y$, with basepoint $Y/Y$.
-If $Y = \varnothing$, then we interpret the resulting object as $X$ with a disjoint basepoint.
-We also have a functor $\mathcal{C} \to \mathcal{C}^{2}$ sending $X \mapsto (X, \varnothing)$.
-Hence, the composition of the two functors gives $X \mapsto X^{+}$, where $X^{+}$ is the disjoint union of $X$ with a basepoint.
+We start off with some recollections from \cite[\S 2]{ati67}.
+We refer to \cite{ati67} and the appendix for previous conventions and other preliminaries.
 
-For $X$ in $\mathcal{C}^{+}$ we define $\tilde{K}(X)$ to be the kernel of the map $i^{*} \colon K(X) \to K(x_{0})$, where $i \colon x_{0} \to X$ is the inclusion of the basepoint.
-If $c \colon X \to x_{0}$ is the collapsing map, then $c^{*}$ induces a splitting
-\[ K(X) \cong \tilde{K}(X) \oplus K(x_{0}). \]
-Indeed, we need...
+\subsection{The functor $K(-)$ \cite[p.~44]{ati67}}
+
+Let $\mathbf{CHaus}$ be the category of compact Hausdorff topological spaces and let $\mathbf{Ring}$ be the category of commutative unital rings.
+We have defined a functor
+
+\[ K \colon \mathbf{CHaus} \to \mathbf{Ring} \]
+
+which can be explicitly described as follows.
+If $E \in \operatorname{Vect}(X)$ is a vector bundle on a compact Hausdorff space $X$, then we denote by $[E]$ its stable equivalence class, i.e.,
+
+\[ [E] := \{ F \in \operatorname{Vect}(X) \mid \exists n \in \mathbb{N} \text{ s.t.~} E \oplus n \cong F \oplus n \}, \]
+
+where we denote also by $n$ the trivial vector bundle of rank $n$ on $X$.
+Then the underlying set of the ring $K(X)$ consists of formal differences $[E] - [F]$ for vector bundles $E, F \in \operatorname{Vect}(X)$.
+The sum is given by
+\[ ([E] - [F]) + ([E'] - [F']) = [E \oplus E'] - [F \oplus F'], \]
+and the product is given by
+\[ ([E] - [F]) ([E'] - [F']) = [(E \otimes E') \oplus (F \otimes F')] - [(E \otimes F') \oplus (E' \otimes F)]. \]
+The element zero can be represented by $[0] - [0]$ and the element one by $[1] - [0]$, where again by $0$ we mean $X \times \{0\}$ and by $1$ we mean $X \times \mathbb{C}$.
+Moreover, since $X$ is compact and Hausdorff, we can represent every element of $K(X)$ as $[E] - [n]$ for some $E \in \operatorname{Vect}(X)$ and some $n \in \mathbb{N}$.
+
+If $f \colon X \to Y$ is a continuous map between compact Hausdorff topological spaces, then $K(f) =: f^{*}$ is given by
+
+\begin{align*}
+  f^{*} \colon K(Y) & \to K(X) \\
+  [E] - [F] & \mapsto [f^{*}(E)] - [f^{*}(F)],
+\end{align*}
+
+and this ring homomorphism only depends on the homotopy class of $f$.
+
+\subsection{The functor $\tilde{K}(-)$ \cite[p.~66]{ati67}}
+
+Let $\mathbf{CHaus}^{+}$ be the category of pointed compact Hausdorff topological spaces and let $\mathbf{Rng}$ be the category of commutative non-unital rings.
+We have defined a functor
+
+\[ \tilde{K} \colon \mathbf{CHaus}^{+} \to \mathbf{Rng} \]
+
+as follows.
+Let $(X,x_{0})$ be pointed compact Hausdorff topological space and let $i \colon \{ x_{0} \} \to X$ denote the inclusion of the base point.
 
 \appendix
 
-\section{More on conventions and preliminaries}
+\section{Conventions and preliminaries}
 
 \subsection{Construction of $K(X)$}
 
