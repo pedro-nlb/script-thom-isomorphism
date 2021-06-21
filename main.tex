@@ -45,9 +45,9 @@
 \renewcommand*{\urladdrname}{\itshape Homepage}
 \urladdr{\normalfont\href{https://home.mathematik.uni-freiburg.de/nunez/}{https://home.mathematik.uni-freiburg.de/nunez}}
 \thanks{The author gratefully acknowledges support by the DFG-Graduiertenkolleg GK1821 ``Cohomological Methods in Geometry'' at the University of Freiburg.}
-\date{\today}
+\date{30th June 2021}
 
-\setcounter{tocdepth}{1}
+%\setcounter{tocdepth}{1}
 \sloppy
 \makeatletter
 \hypersetup{
@@ -57,23 +57,6 @@
   linkcolor=[rgb]{0.2,0.2,0.6},
   citecolor=[rgb]{0.2,0.6,0.2},
   urlcolor=[rgb]{0.6,0.2,0.2}}
-\makeatother
-\makeatletter
-\tikzcdset{
-  open/.code={\tikzcdset{hook, circled};},
-  closed/.code={\tikzcdset{hook, slashed};},
-  circled/.code={\tikzcdset{markwith={\draw (0,0) circle (.375ex);}};},
-  slashed/.code={\tikzcdset{markwith={\draw[-] (-.4ex,-.4ex) -- (.4ex,.4ex);}};},
-  markwith/.code={
-    \pgfutil@ifundefined{tikz@library@decorations.markings@loaded}%
-    {\pgfutil@packageerror{tikz-cd}{You need to say %
-    \string\usetikzlibrary{decorations.markings} to use arrow with markings}{}}{}%
-    \pgfkeysalso{/tikz/postaction={/tikz/decorate,
-    /tikz/decoration={
-      markings,
-      mark = at position 0.5 with
-      {#1}}}}},
-}
 \makeatother
 
 \begin{document}
@@ -96,14 +79,10 @@
 We start off with some recollections from \cite[\S 2]{ati67}.
 We refer to \cite{ati67} and the appendix for previous conventions and other preliminaries.
 
-\subsection{The functor $K(-)$ \cite[p.~44]{ati67}}
-
+\subsection{The functor $K(-)$}
+We follow \cite[p.~44]{ati67}.
 Let $\mathbf{CHaus}$ be the category of compact Hausdorff topological spaces and let $\mathbf{Ring}$ be the category of commutative unital rings.
-We have defined a functor
-
-\[ K \colon \mathbf{CHaus} \to \mathbf{Ring} \]
-
-which can be explicitly described as follows.
+We have defined a functor $K \colon \mathbf{CHaus} \to \mathbf{Ring}$ which can be explicitly described as follows.
 If $E \in \operatorname{Vect}(X)$ is a vector bundle on a compact Hausdorff space $X$, then we denote by $[E]$ its stable equivalence class, i.e.,
 
 \[ [E] := \{ F \in \operatorname{Vect}(X) \mid \exists n \in \mathbb{N} \text{ s.t.~} E \oplus n \cong F \oplus n \}, \]
@@ -126,15 +105,103 @@ If $f \colon X \to Y$ is a continuous map between compact Hausdorff topological 
 
 and this ring homomorphism only depends on the homotopy class of $f$.
 
-\subsection{The functor $\tilde{K}(-)$ \cite[p.~66]{ati67}}
-
+\subsection{The functor $\tilde{K}(-)$}
+We follow \cite[p.~66]{ati67}.
 Let $\mathbf{CHaus}^{+}$ be the category of pointed compact Hausdorff topological spaces and let $\mathbf{Rng}$ be the category of commutative non-unital rings.
-We have defined a functor
-
-\[ \tilde{K} \colon \mathbf{CHaus}^{+} \to \mathbf{Rng} \]
-
-as follows.
+We have defined a functor $\tilde{K} \colon \mathbf{CHaus}^{+} \to \mathbf{Rng}$ as follows.
 Let $(X,x_{0})$ be pointed compact Hausdorff topological space and let $i \colon \{ x_{0} \} \to X$ denote the inclusion of the base point.
+Then
+\[ \tilde{K}(X) := \ker(i^{*}) \subseteq K(X). \]
+
+\begin{rem}
+  $\tilde{K}(X)$ is a non-unital subring: it is a subgroup closed under multiplication but it does not contain $1 \in K(X)$.
+\end{rem}
+
+If $c \colon X \to \{ x_{0} \}$ is the constant morphism to the basepoint, then $c^{*}$ induces a splitting $K(X) \cong \tilde{K}(X) \oplus K(x_{0})$ which is natural with respect to morphisms in $\mathbf{CHaus}^{+}$, hence $\tilde{K}(-)$ is a functor as claimed above.
+If $f \colon (X,x_{0}) \to (Y,y_{0})$ is a morphism in $\mathbf{CHaus}^{+}$ given by a continuous function $f \colon X \to Y$ such that $f(x_{0}) = y_{0}$, then $\tilde{K}(f) =: f^{*}$ is induced by the restriction of $f^{*} \colon K(Y) \to K(X)$.
+
+\begin{rem}
+  We can recover the functor $K(-)$ from the functor $\tilde{K}(-)$ by adding disjoint basepoints:
+  \[ K(X) \cong \tilde{K}(X^{+}), \]
+  where $X^{+}$ is the pointed compact Hausdorff space obtained from adding a disjoint basepoint to the compact Hausdorff space $X$.
+  This is a priori an isomorphism of non-unital rings, but we recover the unit $1 \in K(X)$ as the element corresponding to \color{red} finish this! \color{black}
+  % TODO line above
+\end{rem}
+
+\subsection{The functor $K(-,-)$}
+We follow \cite[p.~66]{ati67}.
+Let $\mathbf{CHaus}^{2}$ be the category of pairs $(X,Y)$ consisting of a compact Hausdorff space $X$ and a compact Hausdorff subspace $Y \subseteq X$, or equivalently a compact Hausdorff space $X$ and a closed subspace $Y \subseteq X$.
+We have defined a functor $K \colon \mathbf{CHaus}^{2} \to \mathbf{Rng}$ as follows.
+For an object $(X,Y)$ in $\mathbf{CHaus}^{2}$, we set
+\[ K(X,Y) := \tilde{K}(X/Y), \]
+
+where the basepoint of $X/Y$ is the equivalence class of any point $y \in Y$, which we denote by $Y/Y$.
+If $f \colon (X,Y) \to (Z,W)$ is a morphism in $\mathbf{CHaus}^{2}$ given by a continuous function $f \colon X \to Z$ such that $f(Y) \subseteq W$, then it induced a morphism $\bar{f} \colon (X/Y,Y/Y) \to (Z/W, W/W)$ in $\mathbf{CHaus}^{+}$.
+Then $K(f) =: f^{*}$ is given by $\tilde{K}(\bar{f})$.
+
+\subsection{The six-term exact sequence}
+
+\begin{defn}
+  Negative indices \cite[Definition 2.4.1]{ati67}.
+\end{defn}
+
+\begin{prop}
+  Exact sequence infinite to the left \cite[Proposition 2.4.4]{ati67}.
+  Explicit description of $\delta$ in \cite[p.~72]{ati67}.
+\end{prop}
+
+\begin{thm}
+  Use periodicity $\beta$ from \cite[Theorem 2.4.9]{ati67} to \textit{define} $K^{n}$ for $n>0$ inductively.
+  We extend previous sequence also infinitely to the right, or equivalently we get a six-term exact sequence \cite[p.~78]{ati67}.
+\end{thm}
+
+\begin{defn}
+  Notation $K^{*}$ \cite[p.~78]{ati67}.
+\end{defn}
+
+\section{Thom spaces}
+
+Introduction and goal of the section: introduce Thom spaces and state the Thom isomorphism theorem.
+
+Brief spoiler defining Thom spaces here already.
+
+\subsection{Even dimensional spheres}
+
+Recall the structure of the group $\tilde{K}^{0}(\mathbb{S}^{2n})$ determined in Vera's talk \cite[Corollary 2.12]{hat03}.
+We already have a generator from this result in Hatcher's book.
+We can describe this canonical generator---up to a sign---in terms of the exterior algebra on an $n$-dimensional $\mathbb{C}$-vector space $V$ \cite[p.~99]{ati67}.
+
+\subsection{Thom spaces}
+
+Generalize discussion on even dimensional spheres to Thom spaces as in \cite[p.~100]{ati67}.
+Define the canonical $\lambda_{E} \in \tilde{K}(X^{E})$ and explain its properties.
+Explain this also in terms of projectivizations of vector bundles plus a trivial line bundle, and recall Prof.~Huber's remark that this projectivization is a way to compactify the vector bundle.
+
+\subsection{Statement of the theorem}
+
+State the Thom isomorphism theorem \cite[Corollary 2.7.12]{ati67}.
+
+\section{Proof for sums of line bundles}
+
+In this section we work with a direct sum of line bundles
+
+\[ E = L_{1} \oplus \ldots \oplus L_{m}. \]
+
+\subsection{Recall $K^{0}(\mathbb{P}(E))$}
+
+This is treated in \cite[Proposition 2.5.3]{ati67}; leave proof in gray, omitted during the talk.
+
+\subsection{Computation of $K^{*}(\mathbb{P}(E))$}
+
+This is \cite[Proposition 2.7.1]{ati67}.
+
+\subsection{Thom isomorphism theorem in this case}
+
+This is \cite[Proposition 2.7.2]{ati67}.
+
+\section{Proof of the general case}
+
+This corresponds to \cite[Proposition 2.7.8]{ati67}, \cite[Proposition 2.7.9]{ati67} and \cite[Proposition 2.7.12]{ati67}.
 
 \appendix
 
