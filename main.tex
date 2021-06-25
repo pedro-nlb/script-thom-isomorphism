@@ -70,19 +70,14 @@
 
 \tableofcontents
 
-\begin{center}
-  \textcolor{gray}{---parts in gray will be omitted during the talk---}
-\end{center}
-
 \section{Recollection from previous talks}
 
 We start off with some recollections from \cite[\S 2]{ati67}.
-We refer to \cite{ati67} and the appendix for previous conventions and other preliminaries.
 
 \subsection{Notation and topological preliminaries}
 
 For $n \in \mathbb{N}$ we denote by $S^{n}$ the $n$-dimensional sphere.
-We think of it as the pointed compact Hausdorff space $I^{n}/\partial I^{n}$, where $I^{n} \subseteq \mathbb{R}^{n}$ is the unit interval and the basepoint is given by the equivalence class of any point in the boundary $\partial I^{n}$.
+We think of it as the pointed compact Hausdorff space $I^{n}/\partial I^{n}$, where $I^{n} \subseteq \mathbb{R}^{n}$ is the unit cube and the basepoint is given by the equivalence class of any point in the boundary $\partial I^{n}$.
 The unit interval $I^{1} = [0,1]$ is denoted simply by $I$.
 
 Given pointed compact Hausdorff spaces $(X,x_{0})$ and $(Y,y_{0})$, we define their \textit{smash product} as
@@ -90,25 +85,68 @@ Given pointed compact Hausdorff spaces $(X,x_{0})$ and $(Y,y_{0})$, we define th
 where $X \vee Y := X \times \{y_{0}\} \cup \{ x_{0}\} \times Y$ is their \textit{wedge sum}.
 The \textit{reduced suspension} of $(X,x_{0})$ is obtained from the usual suspension $(I\times X)/(\{0\}\times X \cup \{1\} \times X)$ by further collapsing the line $I \times \{ x_{0} \}$ joining the two vertices of the suspension along the basepoint.
 Using our explicit description of $S^{1}$, we may rewrite the reduced suspension of $X$ as $S^{1} \wedge X$, and we denote it by $SX$.
-The $n$-th iterated suspension is naturally homeomorphic to $S^{n} \wedge X$, and we denote it by $S^{n}X$.
+The $n$-th iterated suspension\footnote{Smash product is associative on compact spaces, but not in general \color{red} elaborate! \color{black}.} is naturally homeomorphic to $S^{n} \wedge X$, and we denote it by $S^{n}X$. % TODO
 Finally, the \textit{cone} of the pointed compact Hausdorff space $(X,x_{0})$ is defined as $CX := (I \times X )/ (\{0 \} \times X)$, and we take as basepoint the equivalence class of any point in the subspace that we are collapsing \cite[p.~68]{ati67}.
 
+Following \cite[p.~66]{ati67}, we denote by $\mathcal{C}$ the category of compact Hausdorff spaces, by $\mathcal{C}^{+}$ the category of pointed compact Hausdorff spaces and by $\mathcal{C}^{2}$ the category consisting of pairs $(X,Y)$ where $X$ and $Y$ are compact Hausdorff spaces and $Y \subseteq X$ is a subspace.
+Equivalently, $X$ is a compact Hausdorff space and $Y \subseteq X$ is a closed subset.
+
+We will consider complex vector bundles over compact Hausdorff spaces.
+If $E$ is a vector bundle over $X$, then we will often abuse notation and denote again by $E$ its isomorphism class.
+We will denote by $p \colon P(E) \to X$ the \textit{projective bundle associated to $E$}, by $H^{*} \subseteq p^{*}E$ the \textit{tautological line bundle} and by $H := (H^{*})^{*}$ its dual, which we will call the \textit{hyperplane bundle} \cite[p.~45]{ati67}.
+
+\subsection{The functor $\operatorname{Vect}(-)$}
+
+For a compact Hausdorff space $X$, we denote by $\operatorname{Vect}(X)$ the set of isomorphism classes of vector bundles on $X$.
+This set becomes a commutative monoid with respect to direct sum of vector bundles; the zero vector bundle is the neutral element of this monoid.
+Moreover, tensor product of vector bundles induces a multiplication which turns this commutative monoid into a commutative semiring; the trivial line bundle is the unit in this semiring.
+
+\begin{rem}
+  We need to talk about isomorphism classes of vector bundles---and not just about vector bundles---in order to ensure that the axioms of a commutative semiring are satisfied, e.g.~the addition would not be commutative otherwise.
+\end{rem}
+
+If $f \colon X \to Y$ is a continuous function between compact Hausdorff spaces, then the pullback along $f$ defines a morphism
+\[ f^{*} \colon \operatorname{Vect}(Y) \to \operatorname{Vect}(X) \]
+of semirings with unit.
+We have $\operatorname{id}_{X}^{*} = \operatorname{id}_{\operatorname{Vect}(X)}$ and $(g \circ f)^{*} = f^{*} \circ g^{*}$, so we obtain a functor
+\[ \operatorname{Vect} \colon \mathcal{C}^{opp} \to \mathbf{SemiRing}, \]
+where $\mathbf{SemiRing}$ denotes the category of commutative semirings with unit and $(-)^{opp}$ denotes the opposite category.
+
+\begin{rem}
+  Again, we need to talk about isomorphism classes of vector bundles in order to ensure that the axioms of a functor are satisfied, e.g.~the composition would not be sent to the composition otherwise.
+\end{rem} 
+
 \subsection{The functor $K(-)$}
-We follow \cite[p.~44]{ati67}.
-Let $\mathbf{CHaus}$ be the category of compact Hausdorff topological spaces and let $\mathbf{Ring}$ be the category of commutative unital rings.
-We have defined a functor $K \colon \mathbf{CHaus} \to \mathbf{Ring}$ which can be explicitly described as follows.
-If $E \in \operatorname{Vect}(X)$ is a vector bundle on a compact Hausdorff space $X$, then we denote by $[E]$ its stable equivalence class, i.e.,
+We follow \cite[p.~44]{ati67} in this subsection.
+The Grothendieck group construction yields a functor $G \colon \mathbf{SemiRing} \to \mathbf{Ring}$, where $\mathbf{Ring}$ denotes the category of commutative rings with unit.
+The ring $G(A)$ corresponding to a semiring $A$ can be described in various ways; let us fix one description for concreteness.
+As an abelian group, $G(A)$ is given by $A \times A/\Delta(A)$, where $\Delta \colon A \to A \times A$ is the diagonal morphism.
+Thus, the set $G(A)$ consists of equivalence classes of pairs $(a,b) \in A \times A$, where $(a,b) \sim (a',b')$ if and only if there exists $z, z' \in A$ such that
+\[ (a + z, b + z) = (a' + z', b' + z'). \]
+The addition in $G(A)$ is given by $[(a,b)] + [(a',b')] = [(a + a', b + b')]$.
+The neutral element of the group $G(A)$ is then the equivalence class of $(a,a)$ for any $a \in A$, and the inverse of $[(a,b)]$ is $[(b,a)]$.
+We can think of $[(a,b)]$ as $a - b$.
+More precisely, if for each $a \in A$ we denote by $[a]$ its image in $G(A)$, i.e.~$[a] := [(a,0)]$, then $[(a,b)] = [a] - [b]$.
+With this in mind we see that the induced multiplication in $G(A)$ is given by
+\[ [(a,b)][(a',b')] = [(aa'+bb', ab' + a'b)], \]
+and the unit of the ring $G(A)$ is $[(1_{A},0)]$.
+The natural monoid morphism $A \to G(A)$ given by $a \mapsto [a]$ is then also a morphism of semirings with unit.
+And if $\varphi \colon A \to B$ is a morphism of semirrings with unit, then the induced $G(\varphi) \colon G(A) \to G(B)$ given by $[(a,b)] \mapsto [(\varphi(a), \varphi(b))]$ is a morphism of commutative rings with unit.
+Thus we have a functor $G \colon \mathbf{SemiRing} \to \mathbf{Ring}$ as claimed.
+The functor
+\[ K \colon \mathcal{C}^{opp} \to \mathbf{Ring} \]
+is then defined as the composition $G \circ \operatorname{Vect}$.
 
-\[ [E] := \{ F \in \operatorname{Vect}(X) \mid \exists n \in \mathbb{N} \text{ s.t.~} E \oplus n \cong F \oplus n \}, \]
-
-where we denote also by $n$ the trivial vector bundle of rank $n$ on $X$.
-Then the underlying set of the ring $K(X)$ consists of formal differences $[E] - [F]$ for vector bundles $E, F \in \operatorname{Vect}(X)$.
-The sum is given by
+To make things more explicit, let $X$ be a compact Hausdorff space.
+Then an element of the ring $K(X)$ is an equivalence class $[(E,F)]$ where $E$ and $F$ are (isomorphism classes of) vector bundles on $X$.
+As explained above, we may rewrite this element as $[E] - [F]$.
+The addition in $K(X)$ is then given by
 \[ ([E] - [F]) + ([E'] - [F']) = [E \oplus E'] - [F \oplus F'], \]
 and the product is given by
 \[ ([E] - [F]) ([E'] - [F']) = [(E \otimes E') \oplus (F \otimes F')] - [(E \otimes F') \oplus (E' \otimes F)]. \]
+For $n \in \mathbb{N}$, we denote by $[n]$ the image of $X \times \mathbb{C}^{n}$ in $K(X)$.
 The element zero can be represented by $[0] - [0]$ and the element one by $[1] - [0]$, where again by $0$ we mean $X \times \{0\}$ and by $1$ we mean $X \times \mathbb{C}$.
-Moreover, since $X$ is compact and Hausdorff, we can represent every element of $K(X)$ as $[E] - [n]$ for some $E \in \operatorname{Vect}(X)$ and some $n \in \mathbb{N}$.
+Moreover, since $X$ is compact and Hausdorff, we can represent every element of $K(X)$ as $[E] - [n]$ for some $E \in \operatorname{Vect}(X)$ and some $n \in \mathbb{N}$ \cite[p.~44]{ati67}.
 
 If $f \colon X \to Y$ is a continuous map between compact Hausdorff topological spaces, then $K(f) =: f^{*}$ is given by
 
@@ -117,75 +155,111 @@ If $f \colon X \to Y$ is a continuous map between compact Hausdorff topological 
   [E] - [F] & \mapsto [f^{*}(E)] - [f^{*}(F)],
 \end{align*}
 
-and this ring homomorphism only depends on the homotopy class of $f$.
+and this ring morphism only depends on the homotopy class of $f$.
 
 \subsection{The functor $\tilde{K}(-)$}
-We follow \cite[p.~66]{ati67}.
-Let $\mathbf{CHaus}^{+}$ be the category of pointed compact Hausdorff topological spaces and let $\mathbf{Rng}$ be the category of commutative non-unital rings.
-We have defined a functor $\tilde{K} \colon \mathbf{CHaus}^{+} \to \mathbf{Rng}$ as follows.
-Let $(X,x_{0})$ be pointed compact Hausdorff topological space and let $i \colon \{ x_{0} \} \to X$ denote the inclusion of the base point.
+We follow \cite[p.~66]{ati67} in this subsection.
+Let $\mathbf{Rng}$ be the category of commutative non-unital rings.
+We define a functor $\tilde{K} \colon \mathcal{C}^{+} \to \mathbf{Rng}$ as follows.
+Let $(X,x_{0})$ be a pointed compact Hausdorff topological space and let $i \colon \{ x_{0} \} \to X$ denote the inclusion of the basepoint.
 Then
 \[ \tilde{K}(X) := \ker(i^{*}) \subseteq K(X). \]
 
 \begin{rem}
-  $\tilde{K}(X)$ is a non-unital subring: it is a subgroup closed under multiplication but it does not contain $1 \in K(X)$.
+  Let $\xi = [E] - [F] \in K(X)$.
+  Then $\xi \in \tilde{K}(X)$ if and only if $\dim(E_{x_{0}}) = \dim(F_{x_{0}})$.
+  Indeed, it suffices to show that the difference $\dim(E_{x_{0}}) - \dim(F_{x_{0}})$ does not depend on the representative $[E] - [F]$ of the equivalence class $\xi$.
+  But if $[(E,F)] = [(E',F')]$, then there exist $G,G' \in \operatorname{Vect}(X)$ such that $E \oplus G = E' \oplus G'$ and $F \oplus G = F' \oplus G'$.
+  Hence $\dim(E_{x_{0}}) - \dim(F_{x_{0}}) = \dim(E'_{x_{0}}) - \dim(F'_{x_{0}})$.
 \end{rem}
 
-If $c \colon X \to \{ x_{0} \}$ is the constant morphism to the basepoint, then $c^{*}$ induces a splitting $K(X) \cong \tilde{K}(X) \oplus K(x_{0})$ which is natural with respect to morphisms in $\mathbf{CHaus}^{+}$, hence $\tilde{K}(-)$ is a functor as claimed above.
-If $f \colon (X,x_{0}) \to (Y,y_{0})$ is a morphism in $\mathbf{CHaus}^{+}$ given by a continuous function $f \colon X \to Y$ such that $f(x_{0}) = y_{0}$, then $\tilde{K}(f) =: f^{*}$ is induced by the restriction of $f^{*} \colon K(Y) \to K(X)$.
+If $c \colon X \to \{ x_{0} \}$ is the constant morphism to the basepoint, then $c^{*}$ induces a splitting $K(X) \cong \tilde{K}(X) \oplus K(x_{0})$ which is natural with respect to morphisms in $\mathcal{C}^{+}$.
+Hence $\tilde{K}(-)$ is a functor as claimed above.
+If $f \colon (X,x_{0}) \to (Y,y_{0})$ is a morphism in $\mathcal{C}^{+}$ given by a continuous function $f \colon X \to Y$ such that $f(x_{0}) = y_{0}$, then $\tilde{K}(f) =: f^{*}$ is induced by the restriction of $f^{*} \colon K(Y) \to K(X)$.
+One can also check directly that $f^{*} \colon K(Y) \to K(X)$ induces $f^{*} \colon \tilde{K}(Y) \to \tilde{K}(X)$ using the previous remark and the definition of pullbacks of vector bundles.
 
 \begin{rem}
-  We can recover the functor $K(-)$ from the functor $\tilde{K}(-)$ by adding disjoint basepoints:
-  \[ K(X) \cong \tilde{K}(X^{+}), \]
-  where $X^{+}$ is the pointed compact Hausdorff space obtained from adding a disjoint basepoint to the compact Hausdorff space $X$.
-  This is a priori an isomorphism of non-unital rings, but we recover the unit $1 \in K(X)$ as the element corresponding to \color{red} finish this! \color{black}
-  % TODO line above
+  We can recover the functor $K(-)$ from the functor $\tilde{K}(-)$ by adding disjoint basepoints.
+  More precisely, for any compact Hausdorff space $X$, there is a ring isomorphism
+  \begin{align*} 
+    K(X) & \to \tilde{K}(X^{+}) \\
+    [E] - [F] & \mapsto [E \sqcup 0] - [F \sqcup 0]
+  \end{align*}
+  where by $0$ we mean $\{ x_{0} \} \times \mathbb{C}^{0}$, so that $E \sqcup 0$ is a vector bundle over $X^{+} := X \sqcup \{ x_{0} \}$.
+\end{rem}
+
+\begin{rem}
+  As the previous remark already suggests, $\tilde{K}(X^{+})$ is a unital ring for all non-empty $X$.
+  Its unit is given by the image of the unit in $K(X)$ under the previous ring isomorphism, i.e.~it is given by $[1 \sqcup 0] - [0 \sqcup 0]$.
+  But if $(X, x_{0})$ is a connected pointed compact Hausdorff space, then $\tilde{K}(X)$ cannot have a unit $1 \neq 0$, because every element in $\tilde{K}(X)$ is nilpotent \cite[Theorem II.5.9]{kar78}.
 \end{rem}
 
 \subsection{The functor $K(-,-)$}
-We follow \cite[p.~66]{ati67}.
-Let $\mathbf{CHaus}^{2}$ be the category of pairs $(X,Y)$ consisting of a compact Hausdorff space $X$ and a compact Hausdorff subspace $Y \subseteq X$, or equivalently a compact Hausdorff space $X$ and a closed subspace $Y \subseteq X$.
-We have defined a functor $K \colon \mathbf{CHaus}^{2} \to \mathbf{Rng}$ as follows.
-For an object $(X,Y)$ in $\mathbf{CHaus}^{2}$, we set
+We follow \cite[p.~66]{ati67} in this subsection.
+We define a functor $K \colon \mathcal{C}^{2} \to \mathbf{Rng}$ as follows.
+For an object $(X,Y)$ in $\mathcal{C}^{2}$, we set
 \[ K(X,Y) := \tilde{K}(X/Y), \]
 
 where the basepoint of $X/Y$ is the equivalence class of any point $y \in Y$, which we denote by $Y/Y$.
-If $f \colon (X,Y) \to (Z,W)$ is a morphism in $\mathbf{CHaus}^{2}$ given by a continuous function $f \colon X \to Z$ such that $f(Y) \subseteq W$, then it induced a morphism $\bar{f} \colon (X/Y,Y/Y) \to (Z/W, W/W)$ in $\mathbf{CHaus}^{+}$.
+If $f \colon (X,Y) \to (Z,W)$ is a morphism in $\mathcal{C}^{2}$ given by a continuous function $f \colon X \to Z$ such that $f(Y) \subseteq W$, then it induces a morphism $\bar{f} \colon (X/Y,Y/Y) \to (Z/W, W/W)$ in $\mathcal{C}^{+}$.
 Then $K(f) =: f^{*}$ is given by $\tilde{K}(\bar{f})$.
+
+\begin{rem}
+  We can recover the functor $K(-)$ from the functor $K(-,-)$ by considering the empty subspace.
+  More precisely, for any compact Hausdorff space $X$, using our convention\footnote{For $Y \subseteq X$ we may define $X/Y$ as the pushout $X \sqcup_{Y} \{ * \}$.
+  Then we really have $X/\varnothing = X \sqcup \{ * \}$.} that $X/\varnothing = X^{+}$, we have again the ring isomorphism discussed above
+  \[ K(X) \to \tilde{K}(X^{+}) =: K(X, \varnothing). \]
+\end{rem}
 
 \subsection{The six-term exact sequence}
 
 \begin{defn}[{\cite[Definition 2.4.1]{ati67}}]
-  For $n \in \mathbb{N}_{>0}$ we define a functor $\tilde{K}^{-n} \colon \mathbf{CHaus}^{+} \to \mathbf{Rng}$ by setting
+  For $n \in \mathbb{N}_{>0}$ we define a functor $\tilde{K}^{-n} \colon \mathcal{C}^{+} \to \mathbf{Rng}$ by setting
   \[ \tilde{K}^{-n}(X) := \tilde{K}(S^{n}X). \]
-  Then we define a functor $K^{-n} \colon \mathbf{CHaus}^{2} \to \mathbf{Rng}$ via
+  Then we define a functor $K^{-n} \colon \mathcal{C}^{2} \to \mathbf{Rng}$ via
   \[ K^{-n}(X,Y) := \tilde{K}^{-n}(X/Y), \]
-  and finally a functor $K^{-n} \colon \mathbf{CHaus} \to \mathbf{Rng}$ with the formula
+  and finally a functor $K^{-n} \colon \mathcal{C} \to \mathbf{Rng}$ with the formula
   \[ K^{-n}(X) := K^{-n}(X, \varnothing). \]
 \end{defn}
 
 \begin{rem}
-  % TODO finish
-  The last functor takes values in $\mathbf{Ring}$, the unit of $K^{-n}(X)$ being given by... \color{red} finish! \color{black}
+  For $n = 0$ we have seen the relations
+  \[ K^{0}(-) = \tilde{K}^{0}((-)^{+}) = K^{0}(-, \varnothing). \]
+  Let now $n \in \mathbb{N}$ be arbitrary.
+  Then we still have $K^{-n}(-) = K^{-n}(-, \varnothing)$ by definition.
+  We also have $K^{-n}(-, \varnothing) = \tilde{K}^{-n}((-)^{+})$ by definition, so we still have the same relations
+  \[ K^{-n}(-) = \tilde{K}^{-n}((-)^{+}) = K^{-n}(-, \varnothing). \]
+\end{rem}
+
+\begin{rem}
+  Let $(X,x_{0})$ be a pointed compact Hausdorff space.
+  Then we have a canonical group isomorphism $K^{-1}(X) \cong \tilde{K}^{-1}(X)$.
+  Unlike in the case of singular homology and its reduced counterpart, the existence of this isomorphism is not immediate.
+  For example, this is already non-trivial in the case of a point.
+  By definition we have $K^{-1}(\{ x \}) = \tilde{K}(S(\{ x \} \sqcup \{ x_{0} \})) = \tilde{K}(S^{1})$.
+  The isomorphism is then true despite the spaces being so different, because $\tilde{K}(\{ x \}) = \tilde{K}(S^{1}) = 0$.
+  The general case follows from the isomorphisms
+  \[ \tilde{K}(S(X^{+})) = \tilde{K}(S(X) \vee S^{1}) \cong \tilde{K}(SX) \oplus \tilde{K}(S^{1}) \cong \tilde{K}(SX), \]
+  see \cite[p.~57]{hat03}.
 \end{rem}
 
 Recall from Vera's talk:
 
 \begin{prop}[{\cite[Proposition 2.4.4]{ati67}}]
-  For each pair $(X,Y)$ in $\mathbf{CHaus}^{2}$ there is a natural exact sequence
+  For each pair $(X,Y)$ in $\mathcal{C}^{2}$ there is a natural exact sequence
   \[ \cdots \to K^{-1}(Y) \xrightarrow{\delta} K^{0}(X,Y) \xrightarrow{j^{*}} K^{0}(X) \xrightarrow{i^{*}} K^{0}(Y), \]
   where $i \colon Y \to X$ and $j \colon (X,\varnothing) \to (X,Y)$ are the inclusions.
 \end{prop}
 
-\begin{rem}
-  % TODO finish
-  The morphism $\delta \colon K^{-1}(Y) \to K^{0}(X,Y)$ can be constructed as the composition $m^{*} \circ \theta^{-1}$, where $\theta$ is the isomorphism $K(X \cup CY)$... \color{red} finish! \color{black}
-  But the important part is that $\delta$ is induced by a morphism of spaces, cf.~\cite[p.~77]{ati67}.
+\begin{rem}[{\cite[p.~87]{ati67}}]
+  The morphism $\delta \colon K(S(Y),\varnothing) \to K(X,Y)$ is also induced by a morphism in $\mathcal{C}^{2}$, namely, $\delta = \iota^{*}$ for the inclusion
+  \[ \iota \colon (\{1\} \times X \cup I \times Y, \{0\} \times Y ) \hookrightarrow (\{1 \} \times X \cup I \times Y, \{ 0\} \times Y \cup \{1 \} \times X), \]
+  modulo some topology allowing us to identify the reduced $K$-groups of the corresponding quotients with the reduced $K$-groups that we want.
 \end{rem}
 
-Using the periodicity isomorphisms $\beta \colon K^{-n}(X) \to K^{-n-2}(X)$ from \cite[Theorem 2.4.9]{ati67} we extend the collection of functors $\{ K^{-n}(-,-) \}_{n \in \mathbb{N}}$ to a collection of funcotrs $\{ K^{n}(-,-) \}_{n \in \mathbb{Z}}$ inductively, i.e.~$K^{1} = K^{-1}$, $K^{2} = K^{0}$, $K^{3} =K^{1} = K^{-1}$, and so on.
+Using the periodicity ringisomorphisms $\beta \colon K^{-n}(X) \to K^{-n-2}(X)$ from \cite[Theorem 2.4.9]{ati67}, or rather their reduced version $\beta \colon \tilde{K}^{-n}(X) \to \tilde{K}^{-n-2}(X)$, we extend the collection of functors $\{ K^{-n}(-,-) \}_{n \in \mathbb{N}}$ to a collection of funcotrs $\{ K^{n}(-,-) \}_{n \in \mathbb{Z}}$ inductively, i.e.~$K^{1} = K^{-1}$, $K^{2} = K^{0}$, $K^{3} =K^{1} = K^{-1}$, and so on.
 Then we use the previously seen relations among the different $K$ functors to define collections of functors $\{ K^{n}(-) \}_{n \in \mathbb{Z}}$ and $\{ \tilde{K}^{n}(-) \}_{n \in \mathbb{Z}}$ as well.
-As we saw at the end of Vera's talk, this allows us to extend the previous exact sequence to the right, and we rearrange this data into the following \textit{six-term exact sequence}
+This allows us to extend the previous exact sequence to the right, and identifying $K^{n}$ with $K^{n+2}$ for all $n \in \mathbb{Z}$ we may rearrange this data into the following \textit{six-term exact sequence}
 
 \begin{center}
   \begin{tikzcd}
@@ -194,11 +268,13 @@ As we saw at the end of Vera's talk, this allows us to extend the previous exact
   \end{tikzcd}
 \end{center}
 
+\section{The functor $K^{*}(-,-)$}
+
 \begin{defn}
   Let $X$ be a compact Hausdorff space.
   Then we define
   \[ K^{*}(X) := K^{0}(X) \oplus K^{1}(X). \]
-  Similarly, for a pair $(X,Y)$ in $\mathbf{CHaus}^{2}$ we define
+  Similarly, for a pair $(X,Y)$ in $\mathcal{C}^{2}$ we define
   \[ K^{*}(X,Y) := K^{0}(X,Y) \oplus K^{1}(X,Y) \]
   and finally
   \[ \tilde{K}^{*}(X) := K^{*}(X,\varnothing). \]
