@@ -70,313 +70,480 @@
 
 \tableofcontents
 
-\section{Recollection from previous talks}
+\section{Recollections from previous talks}
 
-We start off with some recollections from \cite[\S 2]{ati67}.
+Let us start by recalling the basic definitions and the key results that we have seen in previous talks.
+We are only going to give a sketchy overview here; we refer to \cite{ati67} for the missing details and for most of the relevant conventions and notation.
 
-\subsection{Notation and topological preliminaries}
+\subsection{$K$-rings}
 
-For $n \in \mathbb{N}$ we denote by $S^{n}$ the $n$-dimensional sphere.
-We think of it as the pointed compact Hausdorff space $I^{n}/\partial I^{n}$, where $I^{n} \subseteq \mathbb{R}^{n}$ is the unit cube and the basepoint is given by the equivalence class of any point in the boundary $\partial I^{n}$.
-The unit interval $I^{1} = [0,1]$ is denoted simply by $I$.
+Let $X$ be a compact Hausdorff space.
+We have defined its \textit{$K$-group} $K(X)$ as the Grothendieck group completion of the commutative monoid of isomorphism classes of complex vector bundles on $X$ with direct sum as addition.
+There are various ways to construct $K(X)$; let us fix one explicit construction for concreteness.
+Elements in $K(X)$ are equivalence classes of pairs $(E,F)$ with $E$ and $F$ (isomorphism classes of) vector bundles on $X$.
+Two such pairs $(E,F)$ and $(E',F')$ define the same equivalence class if and only if there exists vector bundles $G$ and $G'$ such that $(E \oplus G, F \oplus G) = (E' \oplus G', F' \oplus G')$.
+We denote by $[E]$ the equivalence class $[(E,X \times \{ 0\})]$, so that $[(E,F)] = [E] - [F]$.
+The tensor product of vector bundles induces a product in $K(X)$ which turns it into a commutative ring with $1 = [(X \times \mathbb{C}, X \times \{ 0 \})]$.
+The pullback of vector bundles along continuous functions induces morphisms of unital rings, so that $K(-)$ is a contravariant functor from the category of compact Hausdorff spaces to the category of commutative unital rings.
 
-Given pointed compact Hausdorff spaces $(X,x_{0})$ and $(Y,y_{0})$, we define their \textit{smash product} as
-\[ X \wedge Y := X \times Y / X \vee Y, \]
-where $X \vee Y := X \times \{y_{0}\} \cup \{ x_{0}\} \times Y$ is their \textit{wedge sum}.
-The \textit{reduced suspension} of $(X,x_{0})$ is obtained from the usual suspension $(I\times X)/(\{0\}\times X \cup \{1\} \times X)$ by further collapsing the line $I \times \{ x_{0} \}$ joining the two vertices of the suspension along the basepoint.
-Using our explicit description of $S^{1}$, we may rewrite the reduced suspension of $X$ as $S^{1} \wedge X$, and we denote it by $SX$.
-The $n$-th iterated suspension\footnote{Smash product is associative on compact spaces, but not in general \color{red} elaborate! \color{black}.} is naturally homeomorphic to $S^{n} \wedge X$, and we denote it by $S^{n}X$. % TODO
-Finally, the \textit{cone} of the pointed compact Hausdorff space $(X,x_{0})$ is defined as $CX := (I \times X )/ (\{0 \} \times X)$, and we take as basepoint the equivalence class of any point in the subspace that we are collapsing \cite[p.~68]{ati67}.
+\begin{exmp}
+  Let $X = \{ * \}$ be a point.
+  Then $K(\{ * \}) \cong \mathbb{Z}$ as rings, because the semiring of isomorphism classes of vector bundles on $\{ * \}$ is isomorphic to the natural numbers, each vector bundle corresponding to its rank.
+\end{exmp}
 
-Following \cite[p.~66]{ati67}, we denote by $\mathcal{C}$ the category of compact Hausdorff spaces, by $\mathcal{C}^{+}$ the category of pointed compact Hausdorff spaces and by $\mathcal{C}^{2}$ the category consisting of pairs $(X,Y)$ where $X$ and $Y$ are compact Hausdorff spaces and $Y \subseteq X$ is a subspace.
-Equivalently, $X$ is a compact Hausdorff space and $Y \subseteq X$ is a closed subset.
+\subsection{Reduced $K$-groups}
 
-We will consider complex vector bundles over compact Hausdorff spaces.
-If $E$ is a vector bundle over $X$, then we will often abuse notation and denote again by $E$ its isomorphism class.
-We will denote by $p \colon P(E) \to X$ the \textit{projective bundle associated to $E$}, by $H^{*} \subseteq p^{*}E$ the \textit{tautological line bundle} and by $H := (H^{*})^{*}$ its dual, which we will call the \textit{hyperplane bundle} \cite[p.~45]{ati67}.
-
-\subsection{The functor $\operatorname{Vect}(-)$}
-
-For a compact Hausdorff space $X$, we denote by $\operatorname{Vect}(X)$ the set of isomorphism classes of vector bundles on $X$.
-This set becomes a commutative monoid with respect to direct sum of vector bundles; the zero vector bundle is the neutral element of this monoid.
-Moreover, tensor product of vector bundles induces a multiplication which turns this commutative monoid into a commutative semiring; the trivial line bundle is the unit in this semiring.
-
-\begin{rem}
-  We need to talk about isomorphism classes of vector bundles---and not just about vector bundles---in order to ensure that the axioms of a commutative semiring are satisfied, e.g.~the addition would not be commutative otherwise.
-\end{rem}
-
-If $f \colon X \to Y$ is a continuous function between compact Hausdorff spaces, then the pullback along $f$ defines a morphism
-\[ f^{*} \colon \operatorname{Vect}(Y) \to \operatorname{Vect}(X) \]
-of semirings with unit.
-We have $\operatorname{id}_{X}^{*} = \operatorname{id}_{\operatorname{Vect}(X)}$ and $(g \circ f)^{*} = f^{*} \circ g^{*}$, so we obtain a functor
-\[ \operatorname{Vect} \colon \mathcal{C}^{opp} \to \mathbf{SemiRing}, \]
-where $\mathbf{SemiRing}$ denotes the category of commutative semirings with unit and $(-)^{opp}$ denotes the opposite category.
-
-\begin{rem}
-  Again, we need to talk about isomorphism classes of vector bundles in order to ensure that the axioms of a functor are satisfied, e.g.~the composition would not be sent to the composition otherwise.
-\end{rem} 
-
-\subsection{The functor $K(-)$}
-We follow \cite[p.~44]{ati67} in this subsection.
-The Grothendieck group construction yields a functor $G \colon \mathbf{SemiRing} \to \mathbf{Ring}$, where $\mathbf{Ring}$ denotes the category of commutative rings with unit.
-The ring $G(A)$ corresponding to a semiring $A$ can be described in various ways; let us fix one description for concreteness.
-As an abelian group, $G(A)$ is given by $A \times A/\Delta(A)$, where $\Delta \colon A \to A \times A$ is the diagonal morphism.
-Thus, the set $G(A)$ consists of equivalence classes of pairs $(a,b) \in A \times A$, where $(a,b) \sim (a',b')$ if and only if there exists $z, z' \in A$ such that
-\[ (a + z, b + z) = (a' + z', b' + z'). \]
-The addition in $G(A)$ is given by $[(a,b)] + [(a',b')] = [(a + a', b + b')]$.
-The neutral element of the group $G(A)$ is then the equivalence class of $(a,a)$ for any $a \in A$, and the inverse of $[(a,b)]$ is $[(b,a)]$.
-We can think of $[(a,b)]$ as $a - b$.
-More precisely, if for each $a \in A$ we denote by $[a]$ its image in $G(A)$, i.e.~$[a] := [(a,0)]$, then $[(a,b)] = [a] - [b]$.
-With this in mind we see that the induced multiplication in $G(A)$ is given by
-\[ [(a,b)][(a',b')] = [(aa'+bb', ab' + a'b)], \]
-and the unit of the ring $G(A)$ is $[(1_{A},0)]$.
-The natural monoid morphism $A \to G(A)$ given by $a \mapsto [a]$ is then also a morphism of semirings with unit.
-And if $\varphi \colon A \to B$ is a morphism of semirrings with unit, then the induced $G(\varphi) \colon G(A) \to G(B)$ given by $[(a,b)] \mapsto [(\varphi(a), \varphi(b))]$ is a morphism of commutative rings with unit.
-Thus we have a functor $G \colon \mathbf{SemiRing} \to \mathbf{Ring}$ as claimed.
-The functor
-\[ K \colon \mathcal{C}^{opp} \to \mathbf{Ring} \]
-is then defined as the composition $G \circ \operatorname{Vect}$.
-
-To make things more explicit, let $X$ be a compact Hausdorff space.
-Then an element of the ring $K(X)$ is an equivalence class $[(E,F)]$ where $E$ and $F$ are (isomorphism classes of) vector bundles on $X$.
-As explained above, we may rewrite this element as $[E] - [F]$.
-The addition in $K(X)$ is then given by
-\[ ([E] - [F]) + ([E'] - [F']) = [E \oplus E'] - [F \oplus F'], \]
-and the product is given by
-\[ ([E] - [F]) ([E'] - [F']) = [(E \otimes E') \oplus (F \otimes F')] - [(E \otimes F') \oplus (E' \otimes F)]. \]
-For $n \in \mathbb{N}$, we denote by $[n]$ the image of $X \times \mathbb{C}^{n}$ in $K(X)$.
-The element zero can be represented by $[0] - [0]$ and the element one by $[1] - [0]$, where again by $0$ we mean $X \times \{0\}$ and by $1$ we mean $X \times \mathbb{C}$.
-Moreover, since $X$ is compact and Hausdorff, we can represent every element of $K(X)$ as $[E] - [n]$ for some $E \in \operatorname{Vect}(X)$ and some $n \in \mathbb{N}$ \cite[p.~44]{ati67}.
-
-If $f \colon X \to Y$ is a continuous map between compact Hausdorff topological spaces, then $K(f) =: f^{*}$ is given by
-
-\begin{align*}
-  f^{*} \colon K(Y) & \to K(X) \\
-  [E] - [F] & \mapsto [f^{*}(E)] - [f^{*}(F)],
-\end{align*}
-
-and this ring morphism only depends on the homotopy class of $f$.
-
-\subsection{The functor $\tilde{K}(-)$}
-We follow \cite[p.~66]{ati67} in this subsection.
-Let $\mathbf{Rng}$ be the category of commutative non-unital rings.
-We define a functor $\tilde{K} \colon \mathcal{C}^{+} \to \mathbf{Rng}$ as follows.
-Let $(X,x_{0})$ be a pointed compact Hausdorff topological space and let $i \colon \{ x_{0} \} \to X$ denote the inclusion of the basepoint.
-Then
-\[ \tilde{K}(X) := \ker(i^{*}) \subseteq K(X). \]
-
-\begin{rem}
-  Let $\xi = [E] - [F] \in K(X)$.
-  Then $\xi \in \tilde{K}(X)$ if and only if $\dim(E_{x_{0}}) = \dim(F_{x_{0}})$.
-  Indeed, it suffices to show that the difference $\dim(E_{x_{0}}) - \dim(F_{x_{0}})$ does not depend on the representative $[E] - [F]$ of the equivalence class $\xi$.
-  But if $[(E,F)] = [(E',F')]$, then there exist $G,G' \in \operatorname{Vect}(X)$ such that $E \oplus G = E' \oplus G'$ and $F \oplus G = F' \oplus G'$.
-  Hence $\dim(E_{x_{0}}) - \dim(F_{x_{0}}) = \dim(E'_{x_{0}}) - \dim(F'_{x_{0}})$.
-\end{rem}
-
-If $c \colon X \to \{ x_{0} \}$ is the constant morphism to the basepoint, then $c^{*}$ induces a splitting $K(X) \cong \tilde{K}(X) \oplus K(x_{0})$ which is natural with respect to morphisms in $\mathcal{C}^{+}$.
-Hence $\tilde{K}(-)$ is a functor as claimed above.
-If $f \colon (X,x_{0}) \to (Y,y_{0})$ is a morphism in $\mathcal{C}^{+}$ given by a continuous function $f \colon X \to Y$ such that $f(x_{0}) = y_{0}$, then $\tilde{K}(f) =: f^{*}$ is induced by the restriction of $f^{*} \colon K(Y) \to K(X)$.
-One can also check directly that $f^{*} \colon K(Y) \to K(X)$ induces $f^{*} \colon \tilde{K}(Y) \to \tilde{K}(X)$ using the previous remark and the definition of pullbacks of vector bundles.
-
-\begin{rem}
-  We can recover the functor $K(-)$ from the functor $\tilde{K}(-)$ by adding disjoint basepoints.
-  More precisely, for any compact Hausdorff space $X$, there is a ring isomorphism
-  \begin{align*} 
-    K(X) & \to \tilde{K}(X^{+}) \\
-    [E] - [F] & \mapsto [E \sqcup 0] - [F \sqcup 0]
-  \end{align*}
-  where by $0$ we mean $\{ x_{0} \} \times \mathbb{C}^{0}$, so that $E \sqcup 0$ is a vector bundle over $X^{+} := X \sqcup \{ x_{0} \}$.
-\end{rem}
-
-\begin{rem}
-  As the previous remark already suggests, $\tilde{K}(X^{+})$ is a unital ring for all non-empty $X$.
-  Its unit is given by the image of the unit in $K(X)$ under the previous ring isomorphism, i.e.~it is given by $[1 \sqcup 0] - [0 \sqcup 0]$.
-  But if $(X, x_{0})$ is a connected pointed compact Hausdorff space, then $\tilde{K}(X)$ cannot have a unit $1 \neq 0$, because every element in $\tilde{K}(X)$ is nilpotent \cite[Theorem II.5.9]{kar78}.
-\end{rem}
-
-\subsection{The functor $K(-,-)$}
-We follow \cite[p.~66]{ati67} in this subsection.
-We define a functor $K \colon \mathcal{C}^{2} \to \mathbf{Rng}$ as follows.
-For an object $(X,Y)$ in $\mathcal{C}^{2}$, we set
-\[ K(X,Y) := \tilde{K}(X/Y), \]
-
-where the basepoint of $X/Y$ is the equivalence class of any point $y \in Y$, which we denote by $Y/Y$.
-If $f \colon (X,Y) \to (Z,W)$ is a morphism in $\mathcal{C}^{2}$ given by a continuous function $f \colon X \to Z$ such that $f(Y) \subseteq W$, then it induces a morphism $\bar{f} \colon (X/Y,Y/Y) \to (Z/W, W/W)$ in $\mathcal{C}^{+}$.
-Then $K(f) =: f^{*}$ is given by $\tilde{K}(\bar{f})$.
-
-\begin{rem}
-  We can recover the functor $K(-)$ from the functor $K(-,-)$ by considering the empty subspace.
-  More precisely, for any compact Hausdorff space $X$, using our convention\footnote{For $Y \subseteq X$ we may define $X/Y$ as the pushout $X \sqcup_{Y} \{ * \}$.
-  Then we really have $X/\varnothing = X \sqcup \{ * \}$.} that $X/\varnothing = X^{+}$, we have again the ring isomorphism discussed above
-  \[ K(X) \to \tilde{K}(X^{+}) =: K(X, \varnothing). \]
-\end{rem}
-
-\subsection{The six-term exact sequence}
-
-\begin{defn}[{\cite[Definition 2.4.1]{ati67}}]
-  For $n \in \mathbb{N}_{>0}$ we define a functor $\tilde{K}^{-n} \colon \mathcal{C}^{+} \to \mathbf{Rng}$ by setting
-  \[ \tilde{K}^{-n}(X) := \tilde{K}(S^{n}X). \]
-  Then we define a functor $K^{-n} \colon \mathcal{C}^{2} \to \mathbf{Rng}$ via
-  \[ K^{-n}(X,Y) := \tilde{K}^{-n}(X/Y), \]
-  and finally a functor $K^{-n} \colon \mathcal{C} \to \mathbf{Rng}$ with the formula
-  \[ K^{-n}(X) := K^{-n}(X, \varnothing). \]
-\end{defn}
-
-\begin{rem}
-  For $n = 0$ we have seen the relations
-  \[ K^{0}(-) = \tilde{K}^{0}((-)^{+}) = K^{0}(-, \varnothing). \]
-  Let now $n \in \mathbb{N}$ be arbitrary.
-  Then we still have $K^{-n}(-) = K^{-n}(-, \varnothing)$ by definition.
-  We also have $K^{-n}(-, \varnothing) = \tilde{K}^{-n}((-)^{+})$ by definition, so we still have the same relations
-  \[ K^{-n}(-) = \tilde{K}^{-n}((-)^{+}) = K^{-n}(-, \varnothing). \]
-\end{rem}
-
-\begin{rem}
-  Let $(X,x_{0})$ be a pointed compact Hausdorff space.
-  Then we have a canonical group isomorphism $K^{-1}(X) \cong \tilde{K}^{-1}(X)$.
-  Unlike in the case of singular homology and its reduced counterpart, the existence of this isomorphism is not immediate.
-  For example, this is already non-trivial in the case of a point.
-  By definition we have $K^{-1}(\{ x \}) = \tilde{K}(S(\{ x \} \sqcup \{ x_{0} \})) = \tilde{K}(S^{1})$.
-  The isomorphism is then true despite the spaces being so different, because $\tilde{K}(\{ x \}) = \tilde{K}(S^{1}) = 0$.
-  The general case follows from the isomorphisms
-  \[ \tilde{K}(S(X^{+})) = \tilde{K}(S(X) \vee S^{1}) \cong \tilde{K}(SX) \oplus \tilde{K}(S^{1}) \cong \tilde{K}(SX), \]
-  see \cite[p.~57]{hat03}.
-\end{rem}
-
-Recall from Vera's talk:
-
-\begin{prop}[{\cite[Proposition 2.4.4]{ati67}}]
-  For each pair $(X,Y)$ in $\mathcal{C}^{2}$ there is a natural exact sequence
-  \[ \cdots \to K^{-1}(Y) \xrightarrow{\delta} K^{0}(X,Y) \xrightarrow{j^{*}} K^{0}(X) \xrightarrow{i^{*}} K^{0}(Y), \]
-  where $i \colon Y \to X$ and $j \colon (X,\varnothing) \to (X,Y)$ are the inclusions.
-\end{prop}
-
-\begin{rem}[{\cite[p.~87]{ati67}}]
-  The morphism $\delta \colon K(S(Y),\varnothing) \to K(X,Y)$ is also induced by a morphism in $\mathcal{C}^{2}$, namely, $\delta = \iota^{*}$ for the inclusion
-  \[ \iota \colon (\{1\} \times X \cup I \times Y, \{0\} \times Y ) \hookrightarrow (\{1 \} \times X \cup I \times Y, \{ 0\} \times Y \cup \{1 \} \times X), \]
-  modulo some topology allowing us to identify the reduced $K$-groups of the corresponding quotients with the reduced $K$-groups that we want.
-\end{rem}
-
-Using the periodicity ringisomorphisms $\beta \colon K^{-n}(X) \to K^{-n-2}(X)$ from \cite[Theorem 2.4.9]{ati67}, or rather their reduced version $\beta \colon \tilde{K}^{-n}(X) \to \tilde{K}^{-n-2}(X)$, we extend the collection of functors $\{ K^{-n}(-,-) \}_{n \in \mathbb{N}}$ to a collection of funcotrs $\{ K^{n}(-,-) \}_{n \in \mathbb{Z}}$ inductively, i.e.~$K^{1} = K^{-1}$, $K^{2} = K^{0}$, $K^{3} =K^{1} = K^{-1}$, and so on.
-Then we use the previously seen relations among the different $K$ functors to define collections of functors $\{ K^{n}(-) \}_{n \in \mathbb{Z}}$ and $\{ \tilde{K}^{n}(-) \}_{n \in \mathbb{Z}}$ as well.
-This allows us to extend the previous exact sequence to the right, and identifying $K^{n}$ with $K^{n+2}$ for all $n \in \mathbb{Z}$ we may rearrange this data into the following \textit{six-term exact sequence}
-
-\begin{center}
-  \begin{tikzcd}
-    K^{0}(X,Y) \arrow{r} & K^{0}(X) \arrow{r} & K^{0}(Y) \arrow{d} \\
-    K^{1}(Y) \arrow{u} & K^{1}(X) \arrow{l} & K^{1}(X,Y) \arrow{l}
-  \end{tikzcd}
-\end{center}
-
-\section{The functor $K^{*}(-,-)$}
-
-\begin{defn}
-  Let $X$ be a compact Hausdorff space.
-  Then we define
-  \[ K^{*}(X) := K^{0}(X) \oplus K^{1}(X). \]
-  Similarly, for a pair $(X,Y)$ in $\mathcal{C}^{2}$ we define
-  \[ K^{*}(X,Y) := K^{0}(X,Y) \oplus K^{1}(X,Y) \]
-  and finally
-  \[ \tilde{K}^{*}(X) := K^{*}(X,\varnothing). \]
-\end{defn}
-
-\begin{rem}
-  % TODO finish
-  Ring structure on $K^{*}$ \color{red} finish! \color{black}
-  In fact, we get the triangle of \cite[p.~87]{ati67} in which all morphisms are $K^{*}(X)$-module morphisms.
-\end{rem}
-
-\section{Thom spaces and statement of the theorem}
-
-Introduction and goal of the section: introduce Thom spaces and state the Thom isomorphism theorem.
-
-Brief spoiler defining Thom spaces here already.
-
-\subsection{Even dimensional spheres}
-
-Recall the structure of the group $\tilde{K}^{0}(\mathbb{S}^{2n})$ determined in Vera's talk \cite[Corollary 2.12]{hat03}.
-We already have a generator from this result in Hatcher's book.
-We can describe this canonical generator---up to a sign---in terms of the exterior algebra on an $n$-dimensional $\mathbb{C}$-vector space $V$ \cite[p.~99]{ati67}.
-
-\subsection{Thom spaces}
-
-Generalize discussion on even dimensional spheres to Thom spaces as in \cite[p.~100]{ati67}.
-Define the canonical $\lambda_{E} \in \tilde{K}(X^{E})$ and explain its properties.
-Explain this also in terms of projectivizations of vector bundles plus a trivial line bundle, and recall Prof.~Huber's remark that this projectivization is a way to compactify the vector bundle.
-
-\subsection{Statement of the theorem}
-
-State the Thom isomorphism theorem \cite[Corollary 2.7.12]{ati67}.
-
-\section{Proof for sums of line bundles}
-
-In this section we work with a direct sum of line bundles
-
-\[ E = L_{1} \oplus \ldots \oplus L_{m}. \]
-
-\subsection{Recall $K^{0}(\mathbb{P}(E))$}
-
-This is treated in \cite[Proposition 2.5.3]{ati67}; leave proof in gray, omitted during the talk.
-
-\subsection{Computation of $K^{*}(\mathbb{P}(E))$}
-
-This is \cite[Proposition 2.7.1]{ati67}.
-
-\subsection{Thom isomorphism theorem in this case}
-
-This is \cite[Proposition 2.7.2]{ati67}.
-
-\section{Proof of the general case}
-
-This corresponds to \cite[Proposition 2.7.8]{ati67}, \cite[Proposition 2.7.9]{ati67} and \cite[Proposition 2.7.12]{ati67}.
-
-\appendix
-
-\section{Conventions and preliminaries}
-
-\subsection{Construction of $K(X)$}
-
-The Grothendieck group is defined via universal property, but let us agree on a specific construction in order to have a precise description of the elements in the ring $K(X)$.
-We follow both \cite{ati67} and \cite{hat03} and consider the construction $1$ described by Jin in the first talk of the seminar, which is the second construction discussed by Atiyah in \cite[p.~42]{ati67}.
+Let now $X$ be a compact Hausdorff space with a basepoint $x_{0} \in X$.
+Then we have defined its \textit{reduced $K$-group} $\tilde{K}(X)$ as the kernel of the ring morphism $i^{*} \colon K(X) \to K(\{ x_{0} \})$.
+Thus $[(E,F)]\in \tilde{K}(X)$ if and only if $\dim(E_{x_{0}}) = \dim(F_{x_{0}})$, because the difference $\dim(E_{x_{0}}) - \dim(F_{x_{0}})$ only depends on the equivalence class $[(E,F)]$.
+Since $(f^{*}E)_{y} = E_{f(y)}$, the pullback of vector bundles along continuous functions induces morphisms between the reduced $K$-groups, so that $\tilde{K}(-)$ is a contravariant functor from the category of comapct Hasudorff spaces to the category of abelian groups\footnote{In fact, $\tilde{K}(-)$ takes values in non-unital commutative rings, because each $\tilde{K}(X)$ is an ideal of the ring $K(X)$.
+But its ring structure is often not that interesting.
+For example, every element in $\tilde{K}(X)$ is nilpotent if $X$ is connected \cite[II.5.9]{kar78}.
+If moreover $X$ is a union of two compact contractible subspaces containing the basepoint, then the product in $\tilde{K}(X)$ is trivial \cite[Example 2.13]{hat03}.}.
 
 \begin{lm}
-  Let $M$ be a commutative monoid.
-  Then Jin's construction $1$ agrees with Atiyah's second construction of $K(M)$.
+  Let $X$ be a compact Hausdorff space; let $i \colon \{ x_{0} \} \to X$ be the inclusion of a basepoint and let $c \colon X \to \{ x_{0} \}$ be the morphism contracting $X$ to the basepoint.
+  Then $c^{*}$ induces a natural splitting of the short exact sequence
+  \[ 0 \to \tilde{K}(X) \to K(X) \to K(\{ x_{0}\}) \to 0. \]
+  In particular, we have a group\footnote{It cannot be an isomorphism of rings in general becuase $\tilde{K}(X)$ does not have a unit in general.} isomorphism
+  \begin{align*}
+    K(X) & \cong \tilde{K}(X) \oplus K(\{ x_{0} \}) \\
+    \xi & \mapsto (\xi - c^{*}i^{*}\xi, i^{*}\xi)
+  \end{align*}
   \begin{proof}
-    In both cases $K(M)$ is the quotient of $M \times M$ by an equivalence relation, so it suffices to show that the equivalence relations agree.
-    In Atiyah's construction we have
-    \[ (x,y) \sim_{A} (x', y') : \Leftrightarrow \exists z , z' \in M,, (x + z, y + z) = (x' + z', y' + z'). \]
-    In Jin's construction we have
-    \[ (x,y) \sim_{J} (x', y') : \Leftrightarrow \exists z \in M,, x + y' + z = x' + y + z. \]
-    If $(x, y) \sim_{A} (x', y')$, then we have $x + z = x' + z'$ and $y + z = y' + z'$ for some $z, z' \in M$. 
-    Associativity and commutativity of $M$ imply that
-    \[ x + y' + z + z' = x' + y' + z' + z' = x' + y + z + z', \]
-    hence $(x, y) \sim_{J} (x', y')$.
-    Conversely, if $(x, y) \sim_{J} (x', y')$, then we have $x + y' + z = x' + y + z$ for some $z \in M$.
-    In particular we have
-    \begin{align*}
-      (x + (x + y' + z), y + (x + y' + z)) & = (x + (x' + y + z), y' + (x + y + z)) \\
-      & = (x' + (x + y + z), y' + (x + y + z)),
-    \end{align*}
-    so $(x, y) \sim_{A} (x', y')$ as well.
+    See \cite[p.~66]{ati67}.
   \end{proof}
 \end{lm}
 
-Given (an isomorphism class of) a vector bundle $E \in \operatorname{Vect}(X)$, we denote by $[E]$ its image in $K(X)$, that is, $[E] = [(E, 0)]$.
-Since $-[E] = [(0,E)]$, we can write every element $[(E,F)] \in K(X)$ as $[E] - [F]$.
-We can find some vector bundle $G$ such that $F \oplus G$ is trivial \cite[Corollary 1.4.14]{ati67}.
-With the notation introduced earlier we can write $[F \oplus G] = [\underline{n}]$ for some $n \in \mathbb{N}$.
-Then we would have
-\[ [E] - [F] = [E] + [G] - ([F] + [G]) = [E \oplus G] - [\underline{n}], \]
-showing that every element of $K(X)$ can be written as $[H] - [\underline{n}]$ for some vector bundle $H$ on $X$ and some natural number $n \in \mathbb{N}$ \cite[p.~44]{ati67}.
+\subsection{Relative $K$-groups}
 
-Suppose now that $E$ and $F$ are such that $[E] = [F]$, that is, $[(E,0)] = [(F,0)]$.
-By definition of the equivalence relation that we are using, there exists some vector bundle $G$ such that $E \oplus G \cong F \oplus G$.
-Applying \cite[Corollary 1.4.14]{ati67} again we deduce that $E \oplus \underline{n} \cong F \oplus \underline{n}$ for some $n \in \mathbb{N}$.
-In this case we say that $E$ and $F$ are \textit{stably equivalent}.
-This brings us to Hatcher's description of $K(X)$ \cite[p.~39]{hat03}, namely, as formal differences $E - E'$ in which we identify $E_{1} - E_{1}'$ with $E_{2} - E_{2}'$ if and only if $E_{1} \oplus E_{2}'$ and $E_{2} \oplus E_{1}'$ are stably equivalent, that is, if and only if $[E_{1} \oplus E_{2}'] = [E_{2} \oplus E_{1}']$.
-Since $[E_{1} \oplus E_{2}'] = [E_{1}] + [E_{2}']$ and $[E_{2} \oplus E_{1}'] = [E_{2}] + [E_{1}']$, we do have $E_{1} - E_{1}' = E_{2} - E_{2}'$ in Hatcher's sense if and only if $[(E_{1},E_{1}')] = [(E_{2},E_{2}')]$ in Atiyah's sense.
-We will try to follow Atiyah's notation most of the time.
+Let $X$ be a compact Hausdorff space and $A \subseteq X$ a closed subspace.
+Then we define the \textit{relative $K$-group} $K(X,A)$ to be $\tilde{K}(X/A)$, where we think of $X/A$ as $X \sqcup_{A} \{ * \}$, so that $X/\varnothing = X^{+}$ is the result of adding a disjoint basepoint to $X$.
+Again, the resulting functor $K(-,-)$ takes values in the category of non-unital commutative rings, but we often just think of it as taking values in the category of abelian groups.
+
+\subsection{Relation between the different $K$-groups}
+
+They are related as follows:
+
+\begin{lm}
+  Let $X$ be a compact Hausdorff space.
+  Then there are canonical ring isomorphisms
+  \[ K(X) \cong \tilde{K}(X^{+}) = K(X,\varnothing). \]
+  \begin{proof}
+    The equality on the right hand side follows from the equality at the level of spaces, which was already mentioned above.
+    The ring isomorphism on the left hand side is given by
+    \[ [(E,F)] \mapsto [(E \sqcup (\{ * \} \times \{ 0 \}), F \sqcup (\{ * \} \times \{ 0 \}))]. \]
+    Direct computation shows that this is indeed a ring morphism.
+  \end{proof}
+\end{lm}
+
+\subsection{Negative $K$-groups}
+
+Let $X$ be a compact Hausdorff space, let $n \in \mathbb{N}$ a natural number and let $x_{0} \in X$ be a basepoint.
+Then we define $\tilde{K}^{-n}(X) := \tilde{K}(S^{n}X)$.
+Similarly, for a closed subspace $A \subseteq X$ we define $K^{-n}(X,A) := \tilde{K}^{-n}(X/A)$.
+And finally, in order to keep the same relations between the $K$-functors as in the case of $n = 0$, we just define $K^{-n}(X) := K^{-n}(X,\varnothing)$.
+Once again, we think of the resulting functors as only taking values in abelian groups.
+In this case we have a more relevant reason to do so.
+Namely, that we are later going to define a product on the direct sum $\oplus_{n \in \mathbb{N}} K^{-n}(X)$ turning it into a graded ring and extending the previous ring structure on $K^{0}(X)$.
+
+\subsection{The long exact sequence of a pair}
+
+Let $X$ be a compact Hausdorff space and let $A \subseteq X$ be a closed subspace.
+We have seen in Vera's talk \cite[Proposition 2.4.4]{ati67} that there is an exact sequence
+
+\[ \cdots \to K^{-1}(A) \to K^{0}(X,A) \to K^{0}(X) \to K^{0}(A). \]
+
+As an immediate consequence \cite[Corollary 2.4.7]{ati67}, if $i \colon A \hookrightarrow X$ is a retract of $X$, i.e.~if there exists $r \colon X \to A$ such that $r \circ i = \operatorname{id}_{A}$, then the exact sequence splits and we obtain isomorphisms $K^{-n}(X) \cong K^{-n}(X,A) \oplus K^{-n}(A)$ for all $n \in \mathbb{N}$.
+If $Y$ is another compact Hausdorff space and we choose basepoints both on $X$ and on $Y$, we can apply this as in \cite[Corollary 2.4.8]{ati67} to obtain isomorphisms
+
+\[ \tilde{K}^{-n}(X \times Y) \cong \tilde{K}^{-n}(X \wedge Y) \oplus \tilde{K}^{-n}(X) \oplus \tilde{K}^{-n}(Y) \]
+
+for all $n \in \mathbb{N}$.
+
+\subsection{External products}
+
+For compact Hausdorff spaces $X$ and $Y$ and vector bundles $E$ and $F$ on $X$ and $Y$ respectively, we denote
+\[ E \boxtimes F = (\pi_{X}^{*}E) \otimes (\pi_{Y}^{*}F) \]
+their \textit{external product}, where $\pi_{X}$ and$\pi_{Y}$ are the corresponding projections from the product $X \times Y$.
+This induces a pairing
+\[ K(X) \otimes K(Y) \to K(X \times Y). \]
+
+\begin{rem}
+  If we take $Y = X$, then we can recover the ring structure on $K(X)$ by pulling back along the diagonal $\Delta \colon X \to X \times X$, because $E \otimes F = \Delta^{*}(E \boxtimes F)$.
+\end{rem}
+
+Assume now that $X$ and $Y$ have basepoints.
+If the class $\xi_{1} \in K(X)$ restricts to zero over the basepoint $x_{0} \in X$ and the class $\xi_{2} \in K(Y)$ restricts to zero over the basepoint $y_{0} \in Y$, then their external product $\xi_{1} \boxtimes \xi_{2} \in K(X \times Y)$ restricts to zero over $X \vee Y$.
+In particular also over the basepoint $(x_{0},y_{0}) \in X \times Y$, so we have $\xi_{1} \boxtimes \xi_{2} \in \tilde{K}(X \times Y)$.
+Since it restricts to zero over $X \vee Y$, identifying $\tilde{K}(X \vee Y) \cong \tilde{K}(X) \oplus \tilde{K}(Y)$, we deduce that $\xi_{1} \boxtimes \xi_{2}$ maps to zero in $\tilde{K}(X) \oplus \tilde{K}(Y)$ under the isomorphism from \cite[Corollary 2.4.8]{ati67} seen at the end of the previous subsection.
+So we may regard $\xi_{1} \boxtimes \xi_{2}$ as an element in $\tilde{K}(X \wedge Y)$.
+Therefore the external product defines a product
+\[ \tilde{K}(X) \otimes \tilde{K}(Y) \to \tilde{K}(X \wedge Y). \]
+Following \cite[p.~54]{hat03}, we can summarize all these identifications and splittings into the following commutative diagram:
+
+\begin{center}
+  \begin{tikzcd}
+    K(X) \otimes K(Y) \arrow{d} &[-12mm] \cong &[-12mm] (\tilde{K}(X) \otimes \tilde{K}(Y)) \arrow{d} &[-12mm] \oplus &[-12mm] \tilde{K}(X) \arrow[equal]{d} &[-12mm] \oplus &[-12mm] \tilde{K}(Y) \arrow[equal]{d} &[-12mm]\oplus &[-12mm] \mathbb{Z} \arrow[equal]{d} \\
+    K(X \times Y) & \cong & \tilde{K}(X \wedge Y) & \oplus & \tilde{K}(X) & \oplus & \tilde{K}(Y) & \oplus & \mathbb{Z}
+  \end{tikzcd}
+\end{center}
+
+From this, using associativity of smash products on compact Hausdorff spaces\footnote{Or more generally on compactly generated spaces.}, we deduce the existence of pairings
+
+\[ \tilde{K}^{-n}(X) \otimes \tilde{K}^{-m}(Y) \to \tilde{K}^{-n-m}(X \wedge Y) \]
+
+for all $n, m \in \mathbb{N}$.
+And if $A \subseteq X$ and $B \subseteq Y$ are closed subspaces, then we may consider the corresponding pairing for the pointed spaces $X/A$ and $Y/B$, which yields pairings
+
+\[ K^{-n}(X,A) \otimes K^{-m}(Y,B) \to K(X \times Y, (X \times B) \cup (A \times Y)) \]
+
+for all $n, m \in \mathbb{N}$, where we are using the natural identification $(X \times Y)/((X \times B)\cup (A \times Y)) = X/A \wedge X/B$.
+
+In particular, taking $Y = X$ and $B = A = \varnothing$, this defines a graded-commutative ring structure on
+
+\[ K^{\#}(X) := \bigoplus_{n \in \mathbb{N}} K^{-n}(X), \]
+
+and taking only $A = \varnothing$ we obtain a graded $K^{\#}(X)$-module structure on
+
+\[ K^{\#}(X,B) := \bigoplus_{n \in \mathbb{N}} K^{-n}(X,B). \]
+
+We use the periodicity isomorphism \cite[Theorem 2.4.9]{ati67} to identify $K^{-n}$ with $K^{-n-2}$ and to extend the definition of the various functors $K^{n}$ to all $n \in \mathbb{Z}$.
+Because of this periodicity we only care about $K^{0}$ and $K^{1}$.
+So we define:
+
+\begin{defn}
+  Let $X$ be a compact Hausdorff space.
+  \begin{enumerate}
+    \item We define $K^{*}(X) = K^{0}(X) \oplus K^{1}(X)$.
+    \item If $x_{0} \in X$ is a baspoint, then we define $\tilde{K}^{*}(X) = \tilde{K}^{0}(X) \oplus \tilde{K}^{1}(X)$.
+    \item If $A \subseteq X$ is a closed subset, then we define $K^{*}(X,A) = K^{0}(X,A) \oplus K^{1}(X,A)$.
+  \end{enumerate}
+  In particular, we still have
+  \[ K^{*}(X) = K^{*}(X, \varnothing) = \tilde{K}^{*}(X^{+}). \]
+\end{defn}
+
+The previously discussed ring and module structures on $K^{\#}(X)$ and $K^{\#}(X,A)$ yield a $\mathbb{Z}/2\mathbb{Z}$-graded ring structure on $K^{*}(X)$ and a $\mathbb{Z}/2\mathbb{Z}$-graded $K^{*}(X)$-module strucutre on $K^{*}(X,A)$.
+
+\subsection{The six-term exact sequence}
+
+Let $X$ be a compact Hausdorff space and let $A \subseteq X$ be a closed subspace.
+Using the periodicity isomorphism \cite[Theorem 2.4.9]{ati67}, we encoded the long exact sequence of the pair $(X,A)$ into a \textit{six-term exact sequence}
+
+\begin{center}
+  \begin{tikzcd}
+    K^{0}(X,A) \arrow{r} & K^{0}(X) \arrow{r} & K^{0}(A) \arrow{d} \\
+    K^{1}(A) \arrow{u} & K^{1}(X) \arrow{l} & K^{1}(X,A) \arrow{l}
+  \end{tikzcd}
+\end{center}
+
+With the notation of the previous subsection, after checking that the coboundary map $K^{-1}(A) \to K^{0}(X,A)$ is a $K(X)$-module morphism \cite[Lemma 2.6.0]{ati67}, we can rewrite this six-term exact sequence into the \textit{exact triangle}
+
+\begin{center}
+  \begin{tikzcd}
+    K^{*}(X) \arrow{rr} & & K^{*}(A) \arrow{dl} \\
+    & K^{*}(X,A) \arrow{ul} & 
+  \end{tikzcd}
+\end{center}
+
+of $K^{*}(X)$-module morphisms.
+
+\section{Thom spaces}
+
+\begin{defn}[Thom space]
+  Let $p \colon E \to X$ be a complex vector bundle over a compact Hausdorff space $X$.
+  Then we define its \textit{Thom space} $X^{E}$ as the one-point compactification of $E$.
+\end{defn}
+
+The goal of this talk is to study the $K$-theory of $X^{E}$.
+Recall that all our base spaces are always assumed to be compact Hausdorff spaces; this explains why we want to study the one-point compactification $X^{E}$ rather than $E$ itself.
+Another reason is that $E$ is homotopy equivalent to $X$, so at the level of cohomological invariants we would not obtain any new interesting information.
+
+Whenever we need to think of $X^{E}$ concretely, we will use one of two alternative descriptions.
+After fixing a metric on $E$, we can think of $X^{E}$ as the quotient space $B(E)/S(E)$, where $B(E)$ is the disc bundle associated to $E$ and $S(E)$ is the sphere bundle associated to $E$.
+Explicitly, $B(E)$ consists of all vectors in $E$ with length at most $1$, and $S(E)$ consists of all vectors in $E$ with length exactly $1$.
+Alternatively, we may construct $X^{E}$ as the quotient $P(E \oplus 1) / P(E)$, where by $1$ we mean the trivial line bundle $X \times \mathbb{C}$ and where we regard $P(E) \subseteq P(E \oplus 1)$ as the image of the section given by
+\begin{align*}
+  P(E) & \to P(E \oplus 1) \\
+  [(v_{1}, \ldots, v_{n})] & \mapsto [(v_{1}, \ldots, v_{n}, 0)]
+\end{align*}
+
+Thus we are adding a ``common point at infinity'' to all the fibers of $E \to X$.
+
+Quoting Atiyah, ``We shall now digress for some time to give an alternative and often illuminating description of $K(X,A)$ which has particular relevance for products.''
+This alternative description will also allow us to find a canonical element in the $K$-theory of the Thom space $X^{E}$.
+This element will play a central role in the Thom isomorphism theorem.
+
+This detour is indeed rather lengthy, occupying most of \cite[\S 2.6]{ati67}.
+The upshot is the following.
+A \textit{complex of vector bundles} on $X$ consists of a sequence
+\[ 0 \to E_{n} \xrightarrow{\sigma_{n}} E_{n-1} \xrightarrow{\sigma_{n-1}} \cdots \to E_{0} \to 0 \]
+of vector bundles on $X$ such that $\sigma_{i} \circ \sigma_{i+1} = 0$ for all $i \in \{1, \dots, n-1\}$.
+A complex of vector bundles $E_{\bullet}$ exact over the subspace $A$ defines an element $\chi (E_{\bullet}) \in K(X,A)$.
+If $A = \varnothing$, this element is given by the formula
+
+\[ \chi(E_{\bullet}) = \sum_{i = 0}^{n} (-1)^{i}[E_{i}] \in K(X). \]
+
+If $Y$ is another compact Hausdorff space, $B \subseteq Y$ is a closed subspace and $F_{\bullet}$ is a complex of vector bundles on $Y$ exact over $B$, then the external tensor product defines a complex of vector bundles $E_{\bullet} \boxtimes F_{\bullet}$ on $X \times Y$ which is exact over $X \times B \cup A \times Y$.
+We have then
+
+\[ \chi( E_{\bullet} \boxtimes F_{\bullet}) = \chi(E_{\bullet}) \chi(F_{\bullet}), \]
+
+yielding a new and convenient way to understand the relative external product
+
+\[ K(X,A) \times K(Y,B) \to K(X \times Y, X \times B \cup A \times Y). \]
+
+\begin{exmp}
+  We have seen that $\tilde{K}^{2}(S^{2}) \cong \mathbb{Z}$ as an abelian group, generated by $[H] - 1 \in K(S^{2})$.
+  The line bundle $H \to S^{2}$ is the hyperplane bundle obtained from regarding $S^{2}$ as the projective bundle $P(\{ * \} \times \mathbb{C}^{2})$ over $\{ * \}$.
+  We again change our point of view slightly and regard $S^{2}$ as the quotient $B(\mathbb{C})/S(\mathbb{C})$, where $B(-)$ and $S(-)$ denote here the unit disc and unit sphere.
+  We consider the complex of vector bundles on $B(\mathbb{C})$ given by
+  \[ 0 \to B(\mathbb{C}) \times \Lambda^{0}\mathbb{C} \xrightarrow{\alpha} B(\mathbb{C}) \times \Lambda^{1}\mathbb{C} \to 0, \]
+  where $\alpha(v,w) := (v,v \wedge w)$, i.e.~$\alpha(v, \lambda) = (v, v \lambda)$ under the identifications $\Lambda^{0}\mathbb{C} = \mathbb{C}$ and $\Lambda^{1}\mathbb{C} = \mathbb{C}$.
+  Let us call $E_{1} := B(\mathbb{C}) \times \Lambda^{0}\mathbb{C}$ and $E_{0} := B(\mathbb{C}) \times \Lambda^{1} \mathbb{C}$.
+  In this case both $E_{1}$ and $E_{0}$ are the trivial line bundle, and the differential in the complex is an isomorphism over all points $v \in B(\mathbb{C}) \setminus \{0 \}$.
+  In particular, the complex $E_{\bullet}$ is exact over $S(\mathbb{C})$.
+  Hence, this complex defines an element
+  \[ \chi(E_{\bullet}) \in K(B(\mathbb{C}),S(\mathbb{C})) = \tilde{K}(S^{2}). \]
+
+  Let us go through the proof of \cite[Lemma 2.6.7]{ati67} with this example and see what $\chi(E_{\bullet})$ is.
+  Let $X_{0}$ and $X_{1}$ be two copies of $B(\mathbb{C})$, let $A = S(\mathbb{C})$ and let $Y = X_{0} \cup_{A} X_{1}$ be the result of gluing the two disjoint copies of $B(\mathbb{C})$ along $S(\mathbb{C})$.
+  Using $\alpha$ as a clutching function we obtain a vector bundle $[E_{1}, \alpha, E_{0}] \in K(Y) = K(S^{2})$.
+  The clutching function defined by $\alpha$ is given by $S^{1} \ni z \mapsto (\lambda \mapsto z \lambda)$.
+  Let $r_{1} \colon Y \to X_{1}$ be the retraction of $X_{1}$ which is given by sending a point on $X_{0}$ to the corresponding point on $X_{1}$, and let $i_{1} \colon X_{1} \to Y$ denote the inclusion into the pushout.
+  This defines a splitting of the long exact sequence from \cite[Proposition 2.4.4]{ati67}, hence an isomorphism
+  
+  \begin{align*}
+    K(Y) & \cong K(Y,X_{1}) \oplus K(X_{1}) \\
+    \xi & \mapsto (\xi - r_{1}^{*}i_{1}^{*}\xi,i_{1}^{*}\xi),
+  \end{align*}
+  where by the first component $\xi - r_{1}^{*}i_{1}^{*}\xi$ we really mean the bundle over $X/A = Y/X_{1}$ whose pullback along the quotient morphism $q \colon Y \to Y/X_{1}$ is that element of $K(Y)$.
+  Since $q$ is the quotient of a contractible subspace, it induces a bijection on isomorphism classes of vector bundles \cite[Lemma 1.4.8]{ati67}.
+  Thus we regard $\chi(E_{\bullet}) = [E_{1}, \alpha, E_{0}] - r_{1}^{*}i_{1}^{*}[E_{1}, \alpha, E_{0}] \in K(X_{0},A)$.
+  Since $[E_{1}, \alpha, E_{0}]$ has clutching function $z \mapsto (\lambda \mapsto z\lambda)$, we have $[E_{1}, \alpha, E_{0}] = [H]^{-1}$ \cite[p.~49]{ati67}.
+  From the equation $([H] - 1)^{2} = 0$ in $K(S^{2})$ we deduce that $[H]^{-1} = 2 - [H]$.
+  And since $X_{1}$ is contractible, we have $r_{1}^{*}i_{1}^{*}[E_{1}, \alpha, E_{0}] = 1$.
+  Therefore $\chi(E_{\bullet}) = 1 - [H]$.
+\end{exmp}
+
+More generally, let $V$ be an $n$-dimensional complex vector space and let $v \in V$ be a vector.
+For each $i \in \mathbb{N}$ we consider the morphism
+
+\begin{align*}
+  \Lambda^{i}V & \to \Lambda^{i+1}V \\
+  \alpha & \mapsto v \wedge \alpha
+\end{align*}
+
+These morphisms define a complex $\Lambda^{\bullet}V$ which is exact if $v \neq 0$, see Theorem 8.11 Keith Conrad's expository notes on exterior powers, available at \url{https://kconrad.math.uconn.edu/blurbs/linmultialg/extmod.pdf}.
+So considering the complex $B(V) \times \Lambda^{\bullet}V$ of vector bundles over the unit disc $B(V)$ whose differentials over $v \in B(V)$ are given by exterior product with $v$ as above, we obtain an element in $\lambda_{V} \in K(B(V),S(V)) = \tilde{K}(S^{2n})$.
+From our new description of the external product we see that
+
+\[ \lambda_{V} = (-1)^{n}([H]-1)^{\boxtimes n} \in \tilde{K}(S^{2n}), \]
+
+because $\Lambda^{\bullet}(V \oplus W) = (\Lambda^{\bullet}V) \otimes (\Lambda^{\bullet}W)$.
+This $\lambda_{V}$ is the canonical generator of $\tilde{K}(S^{2n})$ up to a sign \cite[Corollary 2.12]{hat03}.
+
+Globalizing the previous discussion, if $p \colon E \to X$ is a vector bundle of rank $n$ over a compact Hausdorff space $X$, then we consider the associated unit disc bundle $B(E)$ and the associated unit sphere bundle $S(E)$.
+Then $\Lambda^{\bullet}(p^{*}E)$ is a complex of vector bundles over $B(E)$, with the differential over the point $v \in B(E) \subseteq E$ corresponding to the exterior product by $v$ as above.
+This complex is then exact over $S(E)$, so we obtain an element $\lambda_{E} \in K(B(E),S(E)) = \tilde{K}(X^{E})$ which we call the \textit{Thom class} associated to $E$.
+From the above discussion and from the construction of this complex we deduce the following two properties:
+
+\begin{enumerate}[label=(\Alph*)]
+  \item The Thom class $\lambda_{E}$ restricts to a generator of $\tilde{K}(\{ x \}^{E}) \cong \tilde{K}(S^{2n})$ for each $x \in X$.
+  \item Under the appropriate identifications of disc and sphere bundles, $\lambda_{(E \oplus F)} = \lambda_{E} \boxtimes \lambda_{F}$ in $\tilde{K}(X^{E \oplus F})$.
+\end{enumerate}
+
+We turn now to our second description of $X^{E}$.
+Let us consider the hyperplane bundle $H$ over $P(E \oplus 1)$.
+Tensoring the inclusion $H^{*} \subseteq \pi^{*}(E \oplus 1)$ with $H$ we obtain morphisms
+\[ 1 \cong H \otimes H^{*} \hookrightarrow H \otimes \pi^{*}(E \oplus 1) = (H \otimes \pi^{*}(E)) \oplus H, \]
+where $\pi \colon P(E \oplus 1) \to X$ denotes the projection.
+Composing further with the projection onto the first factor we obtain a natural section $s \in \Gamma(H \otimes \pi^{*}(E))$.
+We use this section to define a complex of vector bundles $\Lambda^{\bullet}(H \otimes \pi^{*}(E))$ over $P(E \oplus 1)$, with the differential over a point $[(v_{1}, \ldots, v_{n}, \lambda)]$ given by exterior product with the vector $s([(v_{1}, \ldots, v_{n}, \lambda)]))$.
+The resulting complex is exact outside of the zero locus of the section $s$.
+This zero locus is given by the points $[(v_{1}, \ldots, v_{n}, \lambda)] \in P(E \oplus 1)$ such that $(v_{1}, \ldots, v_{n}) = 0$, hence it is the isomorphic image of $X$ under the section $X \to P(E \oplus 1)$ given by $x \mapsto [(0, \ldots, 0, 1)]$.
+So the complex is exact over all points in the image of the morphism $P(E) \hookrightarrow P(E \oplus 1)$ given by $[(v_{1}, \ldots, v_{n})] \mapsto [(v_{1}, \ldots, v_{n}, 0)]$.
+Therefore it defines an element
+\[ \chi(\Lambda^{\bullet}(H \otimes \pi^{*}(E))) \in K(P(E \oplus 1), P(E)) = \tilde{K}(X^{E}). \]
+It follows from the definition of $\chi$ \cite[Definition 2.6.2]{ati67} that the image of this element in $K(P(E \oplus 1))$ is givey by
+\[ \sum_{i = 1}^{n} (-1)^{i} [H]^{i}[\Lambda^{i}E]. \]
+We claim now that this element is in fact $\lambda_{E}$ under the identification $K(P(E \oplus 1), P(E)) = K(B(E),S(E))$.
+Indeed, we look at the complement of $P(E)$ inside $P(E \oplus 1)$, with $P(E)$ embedded in $P(E \oplus 1)$ as above.
+This complement consists of points $[(v_{1}, \ldots, v_{n}, \lambda)]$ such that $\lambda \neq 0$.
+We can rescale to obtain a representative of the form $[(v_{1}/\lambda, \ldots, v_{n}/\lambda,1)]$ which is then unique.
+This shows that $P(E \oplus 1) \setminus P(E) \cong E$.
+Moreover, when we restrict $H$ to this copy of $E$ inside $P(E \oplus 1)$, we obtain the trivial line bundle.
+Indeed, it suffices to show that $H^{*}|_{E}$ is the trivial line bundle, and the section $[(v_{1}, \ldots, v_{n}, 1)] \mapsto (v_{1}, \ldots, v_{n},1)$ does not vanish on any point of $E \subseteq P(E \oplus 1)$.
+So $H|_{E}$ is the trivial line bundle and the complex of vector bundles $\Lambda^{\bullet}(H \otimes \pi^{*}(E))$ gets identified with the complex of vector bundles $\Lambda^{\bullet}(p^{*}E)$ over $B(E)$ under the embedding of $B(E) \subseteq E$ in $P(E \oplus 1)$ described above, at least at the level of vector bundles appearing on the complex on each degree.
+Moreover, the section $s$ evaluated at a point $[(v_{1}, \ldots, v_{n},1)] \in B(E) \subseteq P(E \oplus 1)$ corresponds precisely to the vector $(v_{1}, \ldots, v_{n}) \in E$ itself, so the differentials of the two complexes are also identified.
+Hence $\chi(\Lambda^{\bullet}(H \otimes \pi^{*}(E)))$ corresponds to $\lambda_{E}$ under the identification $K(P(E \oplus 1), P(E)) = K(B(E),S(E))$, as we wanted to show.
+
+\section{Proof: the case of decomposable vector bundles}
+
+In Vera's talk we have seen:
+
+\begin{prop}\label{prop:sumnongraded}
+  Let $X$ be a compact Hausdorff space.
+  Let $L_{1}, \ldots, L_{n}$ be line bundles over $X$ and let $H$ be the hyperplane bundle over $P(L_{1} \oplus \ldots \oplus L_{n})$.
+  Then the $K(X)$-algebra morphism sending $t \mapsto [H]$ induces a $K(X)$-algebra isomorphism
+  \[ K(X)[t]/\prod_{i=1}^{n}([L_{i}]t - 1) \to K(P(L_{1} \oplus \ldots \oplus L_{n})). \]
+\end{prop}
+
+We wish to combine this result with the following:
+
+\begin{lm}\label{lm:gradedvsold}
+  Let $X$ be a compact Hausdorff space.
+  Then there is a canonical group isomorphism
+  \[ K^{*}X \cong K(X \times S^{1}). \]
+  \begin{proof}
+    We follow the argument in \cite[p.~38]{wir12}.
+    If $X = \varnothing$, then both sides are just $K(\varnothing) = 0$.
+    Otherwise, we pick a basepoint $x_{0} \in X$.
+    This induces a decomposition $\tilde{K}(X \times S^{1}) \cong \tilde{K}(S^{1} \wedge X) \oplus \tilde{K}(S^{1}) \oplus \tilde{K}(X)$ \cite[Corollary 2.4.8]{ati67}.
+    But $\tilde{K}(S^{1}) = 0$ and $\tilde{K}(S^{1} \wedge X) = \tilde{K}^{1}(X) = K^{1}(X)$, so we have
+    \[ \tilde{K}(S^{1} \times X) \cong K^{1}(X) \oplus \tilde{K}(X). \]
+    Therefore we obtain the desired isomorphism after adding the $K^{0}$ of the basepoint of $S^{1} \times X$ and of $X$ respectively on both sides.
+  \end{proof}
+\end{lm}
+
+\begin{lm}\label{lm:gradedvsoldbundle}
+  In the situation of \Cref{lm:gradedvsold}, let $\pi \colon X \times S^{1} \to X$ be the projection and let $p \colon E \to X$ be a vector bundle on $X$.
+  Then $P(\pi^{*}E) = P(E) \times S^{1}$.
+  In particular, by \Cref{lm:gradedvsold}, there is a canonical group isomorphism
+  \[ K^{*}(P(E)) \cong K(P(\pi^{*}E)). \]
+  \begin{proof}
+    We need to show that there exists a canonical homeomorphism $P(\pi^{*}E) \cong P(E) \times S^{1}$.
+    So let $[(v_{1}, \ldots, v_{n})] \in P(\pi^{*}E)$ be a point over $(p(v_{1}, \ldots, v_{n}), z) \in X \times S^{1}$.
+    We send this point to $([(v_{1}, \ldots, v_{n})], z) \in P(E) \times S^{1}$.
+    This is a continuous bijection between compact Hausdorff spaces, hence a homeomorphism.
+  \end{proof}
+\end{lm}
+
+Now we can deduce the following:
+
+\begin{prop}\label{prop:sumgraded}
+  Let $X$ be a compact Hausdorff space.
+  Let $L_{1}, \ldots, L_{n}$ be line bundles over $X$ and let $H$ be the hyperplane bundle over $P(L_{1} \oplus \ldots \oplus L_{n})$.
+  Then the $K^{*}(X)$-algebra morphism sending $t \mapsto [H]$ induces a $K^{*}(X)$-algebra isomorphism
+  \[ K^{*}(X)[t]/\prod_{i=1}^{n}([L_{i}]t - 1) \to K^{*}(P(L_{1} \oplus \ldots \oplus L_{n})). \]
+  \begin{proof}
+    It suffices to show bijectivity, so it suffices to show that the underlying group morphism is an isomorphism.
+    Under the isomorphism $K^{*}(X) \cong K(X \times S^{1})$ from \Cref{lm:gradedvsold}, the line bundle $L_{i}$ corresponds to $\pi^{*}L_{i}$ for each $i \in \{1, \ldots, n\}$.
+    Hence we have a commutative diagram of groups as follows:
+    
+    \begin{center}
+      \begin{tikzcd}
+        K^{*}(X)[t]/\prod_{i=1}^{n}([L_{i}]t-1) \arrow{d} \arrow{r} & K^{*}(P(L_{1} \oplus \ldots \oplus L_{n})) \arrow{d} \\
+        K(X \times S^{1})/\prod_{i=1}^{n}([\pi^{*}L_{i}]t - 1) \arrow{r} & K(P(\pi^{*}L_{1} \oplus \ldots \oplus \pi^{*}L_{n}))
+      \end{tikzcd}
+    \end{center}
+    
+    The two vertical arrows are group isomorphisms by \Cref{lm:gradedvsold} and \Cref{lm:gradedvsoldbundle}, and the bottom horizontal arrow is the isomorphism from \Cref{prop:sumnongraded}.
+    Hence the top horizontal arrow is an isomorphism, which is what we needed to show.
+  \end{proof}
+\end{prop}
+
+\begin{rem}\label{rem:free}
+  In the situation of \Cref{prop:sumgraded}, the elements $1, [H], [H]^{2}, \ldots, [H]^{n-1}$ form a basis of $K^{*}(P(E))$ over $K^{*}(X)$, because each coefficient $[L_{i}]$ is an invertible element in $K^{*}(X)$.
+  Let us denote by $M^{*}$ the free abelian group generated by $1, [H], [H]^{2}, \ldots, [H]^{n-1}$ endowed with the $\mathbb{Z}/2\mathbb{Z}$-grading induced by the degree of each $[H]^{i}$, which is zero for all $[H]^{i}$ anyway.
+  Then the natural map
+  \[ K^{*}(X) \otimes M^{*} \to K^{*}(P(E)) \]
+  is an isomorphism compatible with the $\mathbb{Z}/2\mathbb{Z}$-grading.
+\end{rem}
+
+We are now ready to prove the Thom isomorphism theorem in the case of decomposable vector bundles:
+
+\begin{prop}\label{prop:sumthom}
+  Let $X$ be a compact Hausdorff space.
+  Let $L_{1}, \ldots, L_{n}$ be line bundles over $X$, let $E := L_{1} \oplus \ldots \oplus L_{n}$ be their direct sum and let $\lambda_{E} \in \tilde{K}(X^{E})$ be the Thom class.
+  Then $\tilde{K}^{*}(X^{E})$ is the free $K^{*}(X)$-module generated by $\lambda_{E}$.
+  \begin{proof}
+    We think of $X^{E}$ as $P(E \oplus 1)/P(E)$.
+    We have seen that in this concrete incarnation, the image of $\lambda_{E}$ in $K(P(E\oplus 1))$ is
+    \[ \sum_{i=1}^{n} (-1)^{i}[H]^{i}[\Lambda^{i}E] = \prod_{i=1}^{n}(1 - [L_{i}][H]), \]
+    where the equality comes from applying the canonical isomorphisms $\Lambda^{m}(M\oplus N) \cong \oplus_{p+q = m} (\Lambda^{p}M )\otimes (\Lambda^{q}N)$ iteratively, cf.~\cite[p.~42]{wir12}.
+    We apply \Cref{prop:sumgraded} to $E$ and to $E \oplus 1$.
+    Since the hyperplane bundle on $P(E \oplus 1)$ restricts to the hyperplane bundle on $P(E)$, the long exact sequence of $K^{*}(X)$-modules associated to the pair $(P(E \oplus 1), P(E))$ looks as follows:
+    \[ \cdots \to \tilde{K}^{*}(X^{E}) \to K^{*}(X)[t]/(f) \xrightarrow{t \mapsto s} K^{*}(X)[s]/(g) \to \cdots, \]
+    with $g(s) = \prod_{i=1}^{n}([L_{i}]s -1)$ and $f(t) = (t-1)g(t)$.
+    In particular, the morphism induced by $t \mapsto s$ is surjective, so we obtain a short exact sequence of $K^{*}(X)$-modules as follows:
+    \[ 0 \to \tilde{K}^{*}(X^{E}) \to K^{*}(X)[t]/(f) \to K^{*}(X)[s]/(g) \to 0. \]
+    As mentioned in the beginning of the proof, we have
+    \[ \lambda_{E} \mapsto (-1)^{n}g(t), \]
+    and this element generates the kernel of the morphism induced by $t \mapsto s$ as an ideal in $K^{*}(X)[t]/(f)$.
+    Division by monic polynomials or by polynomials with a unit as leading coefficient still works with non-commutative coefficient rings, so every element in the kernel of the morphism induced by $t \mapsto s$ can be written as $\xi g(t)$ for some $\xi \in K^{*}(X)$.
+    Thus $\tilde{K}(X^{E})$ is the free $K^{*}(X)$-module generated by $\lambda_{E}$.
+  \end{proof}
+\end{prop}
+
+\section{Proof: the general case}
+
+In order to deduce the general case from the case of decomposable vector bundles, we need the following:
+
+\begin{lm}\label{lm:lerayhirsch}
+  Let $\pi \colon B \to X$ be a morphism of compact Hausdorff spaces.
+  Let $\mu_{1}, \ldots, \mu_{n}$ be homogeneous elements of $K^{*}(B)$ and let $M^{*}$ be the free abelian group generated by $\mu_{1}, \ldots, \mu_{n}$ endowed with the $\mathbb{Z}/2\mathbb{Z}$-grading induced by the degree of each $\mu_{i}$.
+  Suppose that each $x \in X$ has a neighborhood $U$ such that for all compact $A \subseteq U$ the natural map
+  \[ K^{*}(A) \otimes M^{*} \to K^{*}(\pi^{-1}(A)) \]
+  is an isomorphism.
+  Then, for any $A \subseteq X$, the natural map
+  \[ K^{*}(X,A) \otimes M^{*} \to K^{*}(B, \pi^{-1}(A)) \]
+  is an isomorphism.
+  
+  \begin{proof}
+    Let us call a subset $U \subseteq X$ \textit{good} if it has the property that for all compact $A \subseteq U$ the natural map
+    \[ K^{*}(A) \otimes M^{*} \to K^{*}(\pi^{-1}(A)) \]
+    is an isomorphism.
+    Suppose $U$ is good and compact.
+    Then consider the long exact sequence of the pair $(U,A)$:
+    \[ \cdots \to K^{*}(U,A) \to K^{*}(U) \to K^{*}(A) \to \cdots \]
+    Since $M^{*}$ is flat, we obtain a new long exact sequence
+    \[ \cdots \to K^{*}(U,A) \otimes M^{*} \to K^{*}(U) \otimes M^{*} \to K^{*}(A) \otimes M^{*} \to \cdots \]
+    Using the assumption that $U$ is good we obtain the long exact sequence
+    \[ \cdots \to K^{*}(U, A) \otimes M^{*} \to K^{*}(\pi^{-1}(U)) \to K^{*}(\pi^{-1}(A)) \to \cdots \]
+    Now we apply the $5$-lemma to this sequence and to the long exact sequence of the pair $(\pi^{-1}(U), \pi^{-1}(A))$ with the identities and the natural map $K^{*}(U,A) \otimes M^{*} \to K^{*}(\pi^{-1}(U), \pi^{-1}(A))$ as vertical arrows.
+    This shows that the natural map $K^{*}(U,A) \otimes M^{*} \to K^{*}(\pi^{-1}(U), \pi^{-1}(A))$ is an isomorphism as well.
+    So in order to prove the lemma, it suffices to show that $X$ is a good subset.
+
+    By assumption we can cover $X$ by good open subsets.
+    Since $X$ is compact we may find a finite subcover, so that $X$ is covered by finitely many good open subsets.
+    If we show the the union of two good open subsets is a good open subset, then we are done.
+
+    So let $U_{1}$ and $U_{2}$ be good open subsets of $X$.
+    Let $A \subseteq U_{1} \cup U_{2}$ be a compact subspace.
+    Then we can write $A = A_{1} \cup A_{2}$ with $A_{1} \subseteq U_{1}$ and $A_{2} \subseteq U_{2}$ and with $A_{1}$ and $A_{2}$ still compact.
+    Indeed, $X$ is compact Hausdorff, hence normal.
+    Thus we can find disjoint open subsets $V$ and $W$ such that $A \cap (X \setminus U_{2}) \subseteq V$ and $(X \setminus U_{1}) \subseteq W$.
+    Then we may take $A_{1} := A \cap (X \setminus W)$ and $A_{2} := A \cap (X \setminus V)$.
+    We have $A/A_{2} = A_{1}/(A_{1} \cap A_{2})$ and $\pi^{-1}(A_{1})/\pi^{-1}(A_{1} \cap A_{2}) = \pi^{-1}(A_{1})/(\pi^{-1}(A_{1}) \cap \pi^{-1}(A_{2})) = \pi^{-1}(A)/\pi^{-1}(A_{2})$, so $K^{*}(A_{1}, A_{1} \cap A_{2}) \otimes M^{*} \to K^{*}(\pi^{-1}(A_{1}), \pi^{-1}(A_{1} \cap A_{2}))$ being an isomorphism implies that $K^{*}(A, A_{2}) \otimes M^{*} \to K^{*}(\pi^{-1}(A), \pi^{-1}(A_{2}))$ is an isomorphism.
+    Combining this with the assumption that $U_{2}$ is good and applying the $5$-lemma to the long exact sequences of the corresponding pairs we deduce that $K^{*}(A) \otimes M^{*} \to K^{*}(\pi^{-1}(A))$ is an isomorphism, thus showing that $U_{1} \cup U_{2}$ is good and finishing the proof.
+  \end{proof}
+\end{lm}
+
+\begin{cor}\label{cor:generalgraded}
+  Let $X$ be a compact Hausdorff space.
+  Let $E$ be a vector bundle of rank $n$ over $X$ and let $H$ be the hyperplane bundle over $P(E)$.
+  Then $K^{*}(P(E))$ is a free $K^{*}(X)$-module generated by $1, [H], [H]^{2}, \ldots, [H]^{n-1}$, and $[H]$ satisfies the equation
+  \[ \sum_{i = 0}^{n} (-1)^{i}[H]^{i}[\Lambda^{i}E] = 0. \]
+  \begin{proof}
+    We wish to apply \Cref{lm:lerayhirsch} to the morphism $\pi \colon P(E) \to X$, the homogeneous elements $1, [H], [H]^{2}, \ldots, [H]^{n-1}$ in $K^{*}(P(E))$ and the subspace $A = \varnothing$.
+    Let $x \in X$ be a point and let $U \subseteq X$ be an open neighborhood of $x$ over which $E$ is trivial, hence a direct sum of $n$ trivial line bundles.
+    The restriction of $E$ to any compact subspace of $U$ is then again the direct sum of $n$ trivial line bundles.
+    Therefore \Cref{prop:sumgraded} implies that $U$ is good, cf.~also \Cref{rem:free}.
+    Since $K^{*}(-,\varnothing) = K^{*}(-)$, \Cref{lm:lerayhirsch} finishes the proof.
+  \end{proof}
+\end{cor}
+
+And from this we can finally deduce the following
+
+\begin{cor}[Thom isomorphism theorem]\label{cor:generalthom}
+  Let $X$ be a compact Hausdorff space.
+  Let $E$ be a vector bundle of rank $n$ over $X$ and let $\lambda_{E} \in \tilde{K}(X^{E})$ be the Thom class.
+  Then $\tilde{K}^{*}(X^{E})$ is the free $K^{*}(X)$-module generated by $\lambda_{E}$.
+  \begin{proof}
+    We can use the same argument as in the proof of \Cref{prop:sumthom} but applying \Cref{cor:generalgraded} instead of \Cref{prop:sumgraded}.
+  \end{proof}
+\end{cor}
 
 \bibliographystyle{alpha}
 \bibliography{main}
